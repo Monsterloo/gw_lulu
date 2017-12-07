@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.junlon.web.portal.controller.AdminDaoImpl">
+	<sql id="table"> tb_admin </sql>
+
+	<!-- 用于返回的bean对象 -->
+	<resultMap id="BaseResultMap" type="com.junlon.facade.user.entity.Admin">
+		<result column="A_id" property="aid" jdbcType="VARCHAR"/>
+		<result column="A_account" property="aaccount" jdbcType="VARCHAR"/>
+		<result column="A_pwd" property="apwd" jdbcType="VARCHAR"/>
+		<result column="A_role" property="arole" jdbcType="VARCHAR"/>
+		<result column="A_dept" property="adept" jdbcType="VARCHAR"/>
+		<result column="A_name" property="aname" jdbcType="VARCHAR"/>
+		<result column="A_contact" property="acontact" jdbcType="VARCHAR"/>
+		<result column="STATE" property="state" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		A_id,
+		A_account,
+		A_pwd,
+		A_role,
+		A_dept,
+		A_name,
+		A_contact,
+		STATE
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.junlon.facade.user.entity.Admin">
+	
+		<selectKey keyProperty="aid" resultType="String" order="BEFORE">  
+	        select  replace(uuid(),'-','')   from dual  
+	    </selectKey>
+	
+		INSERT INTO <include refid="table" /> (
+			A_id ,
+        	A_account ,
+        	A_pwd ,
+        	A_role ,
+        	A_dept ,
+        	A_name ,
+        	A_contact ,
+        	STATE 
+        ) VALUES (
+        	#{aid,jdbcType=VARCHAR},
+			#{aaccount,jdbcType=VARCHAR},
+			#{apwd,jdbcType=VARCHAR},
+			#{arole,jdbcType=VARCHAR},
+			#{adept,jdbcType=VARCHAR},
+			#{aname,jdbcType=VARCHAR},
+			#{acontact,jdbcType=VARCHAR},
+			#{state,jdbcType=VARCHAR}
+        )
+	</insert>
+
+	<!-- 批量插入记录 -->
+	<insert id="batchInsert" parameterType="list">
+		
+		<selectKey keyProperty="aid" resultType="String" order="BEFORE">  
+	        select  replace(uuid(),'-','')   from dual  
+	    </selectKey>
+	
+		INSERT INTO <include refid="table" /> (
+			A_id , 
+        	A_account ,
+        	A_pwd ,
+        	A_role ,
+        	A_dept ,
+        	A_name ,
+        	A_contact ,
+        	STATE 
+        ) VALUES 
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.aid,jdbcType=VARCHAR},
+			#{item.aaccount,jdbcType=VARCHAR},
+			#{item.apwd,jdbcType=VARCHAR},
+			#{item.arole,jdbcType=VARCHAR},
+			#{item.adept,jdbcType=VARCHAR},
+			#{item.aname,jdbcType=VARCHAR},
+			#{item.acontact,jdbcType=VARCHAR},
+			#{item.state,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<!--更新-->
+	<update id="update" parameterType="com.junlon.facade.user.entity.Admin">
+        UPDATE <include refid="table" /> SET
+			A_account = #{aaccount,jdbcType=VARCHAR},
+			A_pwd = #{apwd,jdbcType=VARCHAR},
+			A_role = #{arole,jdbcType=VARCHAR},
+			A_dept = #{adept,jdbcType=VARCHAR},
+			A_name = #{aname,jdbcType=VARCHAR},
+			A_contact = #{acontact,jdbcType=VARCHAR},
+			STATE = #{state,jdbcType=VARCHAR}
+         WHERE A_id = #{aid,jdbcType=VARCHAR} 
+	</update>
+
+	<!-- 只更新不为null的属性 -->
+	<update id="updateIfNotNull" parameterType="com.junlon.facade.user.entity.Admin">
+		UPDATE <include refid="table" />
+		<set>
+			<if test="aaccount != null">
+				A_account =#{aaccount,jdbcType=VARCHAR},
+			</if>
+			<if test="apwd != null">
+				A_pwd =#{apwd,jdbcType=VARCHAR},
+			</if>
+			<if test="arole != null">
+				A_role =#{arole,jdbcType=VARCHAR},
+			</if>
+			<if test="adept != null">
+				A_dept =#{adept,jdbcType=VARCHAR},
+			</if>
+			<if test="aname != null">
+				A_name =#{aname,jdbcType=VARCHAR},
+			</if>
+			<if test="acontact != null">
+				A_contact =#{acontact,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				STATE =#{state,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE A_id = #{aid,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 不分页查询 -->
+	<select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<include refid="limit_sql" />
+	</select>
+	
+	<!-- 模糊查询 -->
+	<select id="fuzzyListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+				STATE = 1 
+			<if test="aname != null and aname !=''">
+				AND A_name  LIKE CONCAT(CONCAT('%', #{aname,jdbcType=VARCHAR}), '%') 
+			</if>
+		</where>
+		<include refid="limit_sql" />
+	</select>
+	
+	<!-- 模糊查询时计算总记录数 -->
+	<select id="fuzzyListPageCount" parameterType="java.util.Map" resultType="long">
+		select count(1) from
+		<include refid="table" />
+		<where>
+				STATE = 1 
+			<if test="aname != null and aname !=''">
+				AND A_name  LIKE CONCAT(CONCAT('%', #{aname,jdbcType=VARCHAR}), '%') 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询时计算总记录数 -->
+	<select id="listPageCount" parameterType="java.util.Map" resultType="long">
+		select count(1) from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<!-- 根据id查询 -->
+    <select id="getById" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> 
+		FROM <include refid="table" /> 
+		WHERE A_id = #{aid,jdbcType=VARCHAR}  
+	</select>
+
+	<!--按id主键删除-->
+	<update id="deleteById" parameterType="string">
+        UPDATE <include refid="table" /> SET STATE = 0 WHERE A_id = #{id}
+    </update>
+
+	<!-- ↑↑↑↑↑↑ 如果有新增字段、删除字段、修改字段 以上内容可用模板生成新内容后直接替换 ↑↑↑↑↑↑ -->
+	<!-- ↓↓↓↓↓↓ 以下内容是根据需求手动添加或修改的，请勿使用模板内容直接覆盖 ↓↓↓↓↓↓ -->
+
+	<sql id="condition_sql">
+			STATE = 1
+		<if test="aid != null and aid !=''">
+			and A_id = #{aid,jdbcType=VARCHAR}
+		</if>
+		<if test="aaccount != null and aaccount !=''">
+			and A_account = #{aaccount,jdbcType=VARCHAR}
+		</if>
+		<if test="apwd != null and apwd !=''">
+			and A_pwd = #{apwd,jdbcType=VARCHAR}
+		</if>
+		<if test="arole != null and arole !=''">
+			and A_role = #{arole,jdbcType=VARCHAR}
+		</if>
+		<if test="adept != null and adept !=''">
+			and A_dept = #{adept,jdbcType=VARCHAR}
+		</if>
+		<if test="aname != null and aname !=''">
+			and A_name = #{aname,jdbcType=VARCHAR}
+		</if>
+		<if test="acontact != null and acontact !=''">
+			and A_contact = #{acontact,jdbcType=VARCHAR}
+		</if>
+		<if test="state != null and state !=''">
+			and STATE = #{state,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<sql id="limit_sql">
+		<if test="pageIndex != null and pageSize != null">
+			LIMIT #{pageIndex},#{pageSize}
+		</if>
+	</sql>
+</mapper>
+

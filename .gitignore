@@ -1,0 +1,16 @@
+# target Files
+/target/
+*/target/*
+
+# Log Files
+*.log
+*/logs/
+*/logs/*
+
+# Intellij
+*/.idea/
+.idea/
+/.idea/
+*.iml
+*/*.iml
+
