@@ -1,6 +1,9 @@
-package com.junlon.web.portal.controller;
+package com.junlon.core.user.dao.impl;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.junlon.core.user.dao.AdminDao;
+import com.junlon.facade.user.entity.Admin;
+import com.junlon.facade.user.service.AdminQueryFacade;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;

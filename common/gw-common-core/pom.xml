@@ -15,6 +15,9 @@
         <!-- web projects -->
         <gw-web-portal.version>1.0.0-SNAPSHOT</gw-web-portal.version>
 
+        <!-- service projects -->
+        <gw-service-user.version>1.0.0-SHAPSHOT</gw-service-user.version>
+
         <!-- facade projects -->
         <gw-facade-user.version>1.0.0-SHAPSHOT</gw-facade-user.version>
 

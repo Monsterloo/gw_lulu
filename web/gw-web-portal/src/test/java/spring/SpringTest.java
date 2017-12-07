@@ -1,7 +1,7 @@
 package spring;
 
 import com.junlon.facade.user.entity.Admin;
-import com.junlon.facade.user.service.AdminDao;
+import com.junlon.facade.user.service.AdminQueryFacade;
 import com.junlon.web.portal.base.BaseController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class SpringTest {
 
 	@Autowired
-	private AdminDao adminDao;
+	private AdminQueryFacade adminQueryFacade;
 
 	public static void main(String[] args) {
 		/*ApplicationContext ctx = new ClassPathXmlApplicationContext("com/sp/config/spring-common.xml");
@@ -50,7 +50,7 @@ public class SpringTest {
 	public void testMybatis(){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("state", 1);
-		List<Admin> list = adminDao.list(paramMap);
+		List<Admin> list = adminQueryFacade.list(paramMap);
 		System.out.println(list);
 	}
 }

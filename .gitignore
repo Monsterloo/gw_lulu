@@ -1,11 +1,13 @@
 # target Files
 /target/
-*/target/*
+*/target
+**/target
 
 # Log Files
 *.log
 */logs/
-*/logs/*
+**/logs/
+
 
 # Intellij
 */.idea/

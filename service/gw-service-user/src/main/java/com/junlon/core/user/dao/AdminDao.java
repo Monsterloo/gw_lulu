@@ -1,4 +1,4 @@
-package com.junlon.facade.user.service;
+package com.junlon.core.user.dao;
 
 import com.junlon.facade.user.entity.Admin;
 

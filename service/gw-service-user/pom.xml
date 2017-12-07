@@ -2,23 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>com.gw.common</groupId>
         <artifactId>gw-common-core</artifactId>
+        <groupId>com.gw.common</groupId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../../common/gw-common-core/pom.xml</relativePath>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.gw.web</groupId>
-    <artifactId>gw-web-portal</artifactId>
-    <version>${gw-web-portal.version}</version>
-    <packaging>war</packaging>
+    <groupId>com.gw.common</groupId>
+    <artifactId>gw-service-user</artifactId>
+    <version>${gw-service-user.version}</version>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <log4j.projectName>gw-web-portal</log4j.projectName>
+        <log4j.projectName>gw-service-user</log4j.projectName>
         <log4j.level>debug</log4j.level>
         <log4j.ale>debug</log4j.ale>
     </properties>
@@ -36,20 +35,5 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <finalName>gw-web-portal</finalName>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

@@ -16,6 +16,12 @@
     <context:annotation-config />  
     
     <!-- 自动扫描 -->    
-    <context:component-scan base-package="com.junlon.*" />
+    <context:component-scan base-package="com.junlon" />
+
+    <!-- 读入配置属性文件 -->
+    <!--<context:property-placeholder location="classpath:db.properties"/>-->
+    
+    <!-- 导入mybatis配置 -->
+    <import resource="spring-mybatis.xml"/>
     
 </beans>
