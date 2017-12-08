@@ -19,9 +19,11 @@
     <context:component-scan base-package="com.junlon" />
 
     <!-- 读入配置属性文件 -->
-    <!--<context:property-placeholder location="classpath:db.properties"/>-->
+    <context:property-placeholder location="classpath:db.properties,classpath:public_system.properties"/>
     
     <!-- 导入mybatis配置 -->
     <import resource="spring-mybatis.xml"/>
+    <!-- 导入dubbo配置 -->
+    <import resource="spring-dubbo-provider.xml" />
     
 </beans>

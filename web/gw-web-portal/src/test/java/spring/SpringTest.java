@@ -1,10 +1,14 @@
 package spring;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.junlon.facade.user.entity.Admin;
 import com.junlon.facade.user.service.AdminQueryFacade;
 import com.junlon.web.portal.base.BaseController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,6 +25,8 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/spring-context.xml")
 public class SpringTest {
+
+	private static final Logger log = LoggerFactory.getLogger(SpringTest.class);
 
 	@Autowired
 	private AdminQueryFacade adminQueryFacade;
@@ -50,7 +56,9 @@ public class SpringTest {
 	public void testMybatis(){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("state", 1);
-		List<Admin> list = adminQueryFacade.list(paramMap);
-		System.out.println(list);
+		/*List<Admin> list = adminQueryFacade.list(paramMap);
+		String array = JSONObject.toJSONString(list);
+		log.info("testMybatis : {}", JSON.toJSONString(list, true));
+		System.out.println(list);*/
 	}
 }

@@ -1,7 +1,9 @@
 package spring;
 
+import com.junlon.core.user.biz.AdminQueryBiz;
 import com.junlon.facade.user.entity.Admin;
 import com.junlon.facade.user.service.AdminQueryFacade;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ public class SpringTest {
     @Autowired
     private AdminQueryFacade adminQueryFacade;
 
+    @Ignore
     @Test
     public void testQueryFacade(){
         Map<String, Object> params = new HashMap<String, Object>();

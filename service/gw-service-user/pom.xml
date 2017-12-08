@@ -17,9 +17,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <log4j.projectName>gw-service-user</log4j.projectName>
-        <log4j.level>debug</log4j.level>
-        <log4j.ale>debug</log4j.ale>
     </properties>
 
     <dependencies>

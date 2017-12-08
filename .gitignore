@@ -4,6 +4,7 @@
 **/target
 
 # Log Files
+logs/**
 *.log
 */logs/
 **/logs/

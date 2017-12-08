@@ -17,5 +17,11 @@
     
     <!-- 自动扫描 -->    
     <context:component-scan base-package="com.junlon.*" />
+
+    <!-- 读入配置属性文件 -->
+    <context:property-placeholder location="classpath:public_system.properties"/>
+
+    <!-- dubbo本地接口实例 -->
+    <import resource="classpath:spring/dubbo/dubbo-consumer.xml" />
     
 </beans>
