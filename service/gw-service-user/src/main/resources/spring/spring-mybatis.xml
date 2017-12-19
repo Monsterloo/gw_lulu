@@ -18,7 +18,7 @@
         <property name="location" value="classpath:db.properties" />
     </bean>-->
     <bean id="mapperScannerConfig" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.junlon.core.user.dao" />
+        <property name="basePackage" value="com.junlon.core.user.dao.impl" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 

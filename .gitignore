@@ -5,6 +5,7 @@
 
 # Log Files
 logs/**
+logs/*
 *.log
 */logs/
 **/logs/

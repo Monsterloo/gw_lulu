@@ -56,9 +56,9 @@ public class SpringTest {
 	public void testMybatis(){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("state", 1);
-		/*List<Admin> list = adminQueryFacade.list(paramMap);
+		List<Admin> list = adminQueryFacade.list(paramMap);
 		String array = JSONObject.toJSONString(list);
 		log.info("testMybatis : {}", JSON.toJSONString(list, true));
-		System.out.println(list);*/
+		System.out.println(list);
 	}
 }
