@@ -25,5 +25,7 @@
     <import resource="spring-mybatis.xml"/>
     <!-- 导入dubbo配置 -->
     <import resource="spring-dubbo-provider.xml" />
+    <!-- 导入ActiveMQ配置 -->
+    <import resource="spring-amq.xml" />
     
 </beans>

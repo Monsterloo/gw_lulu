@@ -18,7 +18,7 @@
     <dubbo:monitor protocol="registry" />
 
     <!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->
-    <!--<dubbo:provider timeout="30000" dispatcher="all" threadpool="fixed" threads="500" accepts="1000" />-->
+    <dubbo:provider retries="0" timeout="30000" dispatcher="all" threadpool="fixed" threads="1000" accepts="1000" />
 
     <!-- 和本地bean一样实现服务 -->
     <!-- 声明需要暴露的服务接口 -->

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.junlon.facade.user.entity.Admin;
 import com.junlon.facade.user.service.AdminQueryFacade;
 import com.junlon.web.portal.base.BaseController;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -45,6 +46,7 @@ public class SpringTest {
 	}
 
 	@Test
+	@Ignore
 	public void test(){
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/spring-context.xml");
 		BaseController baseController = (BaseController) ctx.getBean("baseController");

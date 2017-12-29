@@ -27,7 +27,6 @@ public class SpringTest {
     @Autowired
     private AdminQueryFacade adminQueryFacade;
 
-    @Ignore
     @Test
     public void testQueryFacade(){
         Map<String, Object> params = new HashMap<String, Object>();
