@@ -55,6 +55,7 @@ public class SpringTest {
 	}
 
 	@Test
+	@Ignore
 	public void testMybatis(){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("state", 1);

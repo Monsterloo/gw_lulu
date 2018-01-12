@@ -1,6 +1,9 @@
 package com.junlon.web.portal.controller;
 
+import com.junlon.facade.user.service.AdminQueryFacade;
 import com.junlon.web.portal.base.BaseController;
+import com.junlon.web.portal.base.BaseLogonController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController extends BaseController {
+public class LoginController extends BaseController{
+
+    @Autowired
+    private AdminQueryFacade adminQueryFacade;
 
     @RequestMapping("/loginUI")
     public String loginUI(){

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.gw.common</groupId>
+        <artifactId>gw-common-core</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../common/gw-common-core/pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.gw.timer</groupId>
+    <artifactId>gw-timer-check</artifactId>
+    <version>${gw-timer-check.version}</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.gw.common</groupId>
+            <artifactId>gw-common-base</artifactId>
+            <version>${gw-common-base.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gw.facade</groupId>
+            <artifactId>gw-facade-user</artifactId>
+            <version>${gw-facade-user.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>gw-timer-check</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

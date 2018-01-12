@@ -20,11 +20,10 @@
 
     <!-- 读入配置属性文件 -->
     <context:property-placeholder location="classpath:db.properties,classpath:public_system.properties"/>
-    
-    <!-- 导入mybatis配置 -->
-    <import resource="spring-mybatis.xml"/>
-    <!-- 导入dubbo配置 -->
-    <!--<import resource="spring-dubbo-provider.xml" />-->
+
+    <!-- 导入quartz配置 -->
+    <import resource="spring-quartz.xml" />
+
     <!-- 导入ActiveMQ配置 -->
     <!--<import resource="spring-amq.xml" />-->
     

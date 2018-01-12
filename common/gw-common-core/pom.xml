@@ -12,6 +12,9 @@
     <properties>
         <!-- ========================================================== -->
 
+        <!-- timer projects -->
+        <gw-timer-check.version>1.0.0-SNAPSHOT</gw-timer-check.version>
+
         <!-- web projects -->
         <gw-web-portal.version>1.0.0-SNAPSHOT</gw-web-portal.version>
 
@@ -283,16 +286,16 @@
             <artifactId>activemq-pool</artifactId>
             <version>5.8.0</version>
         </dependency>
+        <!-- quartz 的jar -->
         <dependency>
-            <groupId>quartz</groupId>
+            <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-            <version>1.6.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.1</version>
         </dependency>
         <!-- activemq End -->
 
