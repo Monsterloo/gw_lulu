@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.gw.common</groupId>
+    <groupId>com.gw.service</groupId>
     <artifactId>gw-service-user</artifactId>
     <version>${gw-service-user.version}</version>
     <packaging>jar</packaging>

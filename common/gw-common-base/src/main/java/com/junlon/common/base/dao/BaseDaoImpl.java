@@ -1,9 +1,13 @@
 package com.junlon.common.base.dao;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.junlon.common.base.exceptions.BizException;
 import com.junlon.common.base.page.PageBean;
 import com.junlon.common.base.page.PageParam;
+import com.junlon.common.base.utils.date.DateUtils;
 import com.junlon.common.base.utils.string.StringUtil;
+import com.junlon.common.base.utils.validate.ValidateUtils;
+import org.apache.ibatis.jdbc.SqlRunner;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -238,6 +245,76 @@ public abstract class BaseDaoImpl<T> extends SqlSessionDaoSupport implements Bas
 	 */
 	public Map<String, Object> getMinAndMaxId(Map<String, Object> paramMap) {
 		return sessionTemplate.selectOne(getStatement(SQL_GET_MIN_AND_MAX_ID), paramMap);
+	}
+
+	/**
+	 * 根据序列名称,获取序列值
+	 */
+	public String getSeqNextValue(String seqName) {
+		boolean isClosedConn = false;
+		// 获取当前线程的连接
+		Connection connection = this.sessionTemplate.getConnection();
+		// 获取Mybatis的SQLRunner类
+		SqlRunner sqlRunner = null;
+		try {
+			// 要执行的SQL
+			String sql = "";
+			// 数据库驱动类
+			String driverClass = druidDataSource.getDriver().getClass().getName();
+			// 不同的数据库,拼接SQL语句
+			if (driverClass.equals("com.ibm.db2.jcc.DB2Driver")) {
+				sql = "  VALUES " + seqName.toUpperCase() + ".NEXTVAL";
+			}
+			if (driverClass.equals("oracle.jdbc.OracleDriver")) {
+				sql = "SELECT " + seqName.toUpperCase() + ".NEXTVAL FROM DUAL";
+			}
+			if (driverClass.equals("com.mysql.jdbc.Driver")) {
+				sql = "SELECT  FUN_SEQ('" + seqName.toUpperCase() + "')";
+			}
+			// 如果状态为关闭,则需要从新打开一个连接
+			if (connection.isClosed()) {
+				connection = sqlSessionFactory.openSession().getConnection();
+				isClosedConn = true;
+			}
+			sqlRunner = new SqlRunner(connection);
+			Object[] args = {};
+			// 执行SQL语句
+			Map<String, Object> params = sqlRunner.selectOne(sql, args);
+			for (Object o : params.values()) {
+				return o.toString();
+			}
+			return null;
+		} catch (Exception e) {
+			logger.error(e.toString());
+			throw BizException.DB_GET_SEQ_NEXT_VALUE_ERROR.newInstance("获取序列出现错误!序列名称:{%s}", seqName);
+		} finally {
+			try {
+				connection.commit();
+			} catch (SQLException e) {
+				logger.error("error==>", e);
+			}
+			if (isClosedConn) {
+				sqlRunner.closeConnection();
+			}
+		}
+	}
+
+	/**
+	 * key:value = 主键:实体对象 的键值对，其中key是property参数指定的主键名的值
+	 * @param paramMap
+	 * @return
+	 */
+	public Map<Long, T> mapById(Map<String, Object> paramMap){
+		return sessionTemplate.selectMap(getStatement(SQL_MAP_BY_ID), paramMap, DEFAULT_ID_COLUMN_NAME);
+	}
+
+	/**
+	 * key:value = 某个值为字符串的字段:实体对象 的键值对，其中key是property参数指定的字段名的值
+	 * @param paramMap
+	 * @return
+	 */
+	public Map<String, T> mapBy(Map<String, Object> paramMap, String property){
+		return sessionTemplate.selectMap(getStatement(SQL_MAP_BY), paramMap, property);
 	}
 
 	/**

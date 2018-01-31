@@ -1,6 +1,5 @@
 package com.junlon.timer.Biz;
 
-import com.junlon.timer.CheckTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,7 @@ import java.util.Date;
 
 /**
  * @Author: LuJunLang
- * @Description:
+ * @Description: 定时作业
  * @Date: 2018/1/11
  */
 @Component("checkTimerBiz")

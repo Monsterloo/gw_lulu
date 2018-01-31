@@ -20,9 +20,11 @@
 
         <!-- service projects -->
         <gw-service-user.version>1.0.0-SHAPSHOT</gw-service-user.version>
+        <gw-service-account.version>1.0.0-SHAPSHOT</gw-service-account.version>
 
         <!-- facade projects -->
         <gw-facade-user.version>1.0.0-SHAPSHOT</gw-facade-user.version>
+        <gw-facade-account.version>1.0.0-SHAPSHOT</gw-facade-account.version>
 
         <!-- common projects -->
         <gw-common-base.version>1.0.0-SHAPSHOT</gw-common-base.version>
@@ -382,6 +384,21 @@
 
         <!-- log -->
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
@@ -392,14 +409,9 @@
             <version>${log4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

@@ -31,6 +31,11 @@
             <artifactId>gw-facade-user</artifactId>
             <version>${gw-facade-user.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.gw.facade</groupId>
+            <artifactId>gw-facade-account</artifactId>
+            <version>${gw-facade-account.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

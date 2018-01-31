@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junlon.core.account.dao.impl.CommonUniqueDaoImpl">
+
+	<sql id="table"> tbl_common_unique </sql>
+
+	<resultMap id="BaseResultMap" type="com.junlon.facade.account.entity.CommonUnique">
+		<result property="uniqueKey" column="UNIQUE_KEY" />
+		<result property="createTime" column="CREATE_TIME"/>
+	</resultMap>
+
+	<insert id="insert" parameterType="com.junlon.facade.account.entity.CommonUnique" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		(UNIQUE_KEY, CREATE_TIME)
+		values (#{uniqueKey}, #{createTime})
+	</insert>
+
+	<insert id="batchInsert" parameterType="com.junlon.facade.account.entity.CommonUnique">
+		insert into
+		<include refid="table" />
+		(UNIQUE_KEY, CREATE_TIME)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.uniqueKey}, #{createTime})
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.junlon.facade.account.entity.CommonUnique">
+		update
+		<include refid="table" />
+		<set>
+			UNIQUE_KEY = #{uniqueKey} ,
+			CREATE_TIME = #{createTime}
+		</set>
+		<where>
+			ID = #{id}
+		</where>
+	</update>
+
+	<sql id="condition_sql">
+		<if test="uniqueKey != null and uniqueKey !='' "> and UNIQUE_KEY = #{uniqueKey}</if>
+		<if test="createTime != null and createTime !='' "> CREATE_TIME = #{createTime}</if>
+	</sql>
+
+	<select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select id,UNIQUE_KEY,CREATE_TIME from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select id,UNIQUE_KEY,CREATE_TIME from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by ID desc]]>
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map" resultType="long">
+		select count(1) from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+</mapper>

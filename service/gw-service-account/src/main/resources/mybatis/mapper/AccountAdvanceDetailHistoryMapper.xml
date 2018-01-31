@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.junlon.core.account.dao.impl.AccountAdvanceDetailHistoryDaoImpl">
+	<sql id="table"> tbl_account_advance_detail_history </sql>
+
+	<!-- 用于返回的bean对象 -->
+	<resultMap id="BaseResultMap" type="com.junlon.facade.account.entity.AccountAdvanceDetailHistory">
+		<result column="ID" property="id" jdbcType="BIGINT"/>
+		<result column="MIGRATION_TIME" property="migrationTime" jdbcType="TIMESTAMP"/>
+		<result column="VERSION" property="version" jdbcType="SMALLINT"/>
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="TRX_TIME" property="trxTime" jdbcType="TIMESTAMP"/>
+		<result column="TRX_DATE" property="trxDate" jdbcType="DATE"/>
+		<result column="ACCOUNT_TRX_TYPE" property="accountTrxType" jdbcType="SMALLINT"/>
+		<result column="REQUEST_NO" property="requestNo" jdbcType="VARCHAR"/>
+		<result column="ACCOUNT_NO" property="accountNo" jdbcType="CHAR"/>
+		<result column="USER_NO" property="userNo" jdbcType="VARCHAR"/>
+		<result column="ACCOUNT_TYPE" property="accountType" jdbcType="SMALLINT"/>
+		<result column="MAX_ADVANCE_AMOUNT" property="maxAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="CURRENT_ADVANCE_AMOUNT" property="currentAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="AVAILABLE_ADVANCE_AMOUNT" property="availableAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="USED_ADVANCE_AMOUNT" property="usedAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="ADVANCE_FROZEN_AMOUNT" property="advanceFrozenAmount" jdbcType="DECIMAL"/>
+		<result column="ADVANCE_SCALE" property="advanceScale" jdbcType="DECIMAL"/>
+		<result column="FEE" property="fee" jdbcType="DECIMAL"/>
+		<result column="FUND_DIRECTION" property="fundDirection" jdbcType="SMALLINT"/>
+		<result column="ALTER_TYPE" property="alterType" jdbcType="SMALLINT"/>
+		<result column="ALTER_AMOUNT" property="alterAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_MAX_ADVANCE_AMOUNT" property="alterMaxAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_CURRENT_ADVANCE_AMOUNT" property="alterCurrentAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_USED_ADVANCE_AMOUNT" property="alterUsedAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_ADVANCE_FROZEN_AMOUNT" property="alterAdvanceFrozenAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_AMOUNT_FOR_GRAND_TOTAL" property="alterAmountForGrandTotal" jdbcType="DECIMAL"/>
+		<result column="GRAND_TOTAL_RECEIVE_AMOUNT" property="grandTotalReceiveAmount" jdbcType="DECIMAL"/>
+		<result column="GRAND_TOTAL_FROZEN_AMOUNT" property="grandTotalFrozenAmount" jdbcType="DECIMAL"/>
+		<result column="GRAND_TOTAL_RETURN_AMOUNT" property="grandTotalReturnAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL" property="alterAmountForAvailableGrandTotal" jdbcType="DECIMAL"/>
+		<result column="GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT" property="grandTotalAvailableFrozenAmount" jdbcType="DECIMAL"/>
+		<result column="GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT" property="grandTotalAvailableReturnAmount" jdbcType="DECIMAL"/>
+		<result column="CLEAR_STAGE" property="clearStage" jdbcType="SMALLINT"/>
+		<result column="CLEAR_NO" property="clearNo" jdbcType="VARCHAR"/>
+		<result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,
+		MIGRATION_TIME,
+		VERSION,
+		CREATE_TIME,
+		TRX_TIME,
+		TRX_DATE,
+		ACCOUNT_TRX_TYPE,
+		REQUEST_NO,
+		ACCOUNT_NO,
+		USER_NO,
+		ACCOUNT_TYPE,
+		MAX_ADVANCE_AMOUNT,
+		CURRENT_ADVANCE_AMOUNT,
+		AVAILABLE_ADVANCE_AMOUNT,
+		USED_ADVANCE_AMOUNT,
+		ADVANCE_FROZEN_AMOUNT,
+		ADVANCE_SCALE,
+		FEE,
+		FUND_DIRECTION,
+		ALTER_TYPE,
+		ALTER_AMOUNT,
+		ALTER_MAX_ADVANCE_AMOUNT,
+		ALTER_CURRENT_ADVANCE_AMOUNT,
+		ALTER_USED_ADVANCE_AMOUNT,
+		ALTER_ADVANCE_FROZEN_AMOUNT,
+		ALTER_AMOUNT_FOR_GRAND_TOTAL,
+		GRAND_TOTAL_RECEIVE_AMOUNT,
+		GRAND_TOTAL_FROZEN_AMOUNT,
+		GRAND_TOTAL_RETURN_AMOUNT,
+		ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,
+		GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,
+		CLEAR_STAGE,
+		CLEAR_NO,
+		REMARK
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.junlon.facade.account.entity.AccountAdvanceDetailHistory">
+		INSERT INTO <include refid="table" /> (
+		MIGRATION_TIME ,
+		VERSION ,
+		TRX_TIME ,
+		TRX_DATE ,
+		ACCOUNT_TRX_TYPE ,
+		REQUEST_NO ,
+		ACCOUNT_NO ,
+		USER_NO ,
+		ACCOUNT_TYPE ,
+		MAX_ADVANCE_AMOUNT ,
+		CURRENT_ADVANCE_AMOUNT ,
+		AVAILABLE_ADVANCE_AMOUNT ,
+		USED_ADVANCE_AMOUNT ,
+		ADVANCE_FROZEN_AMOUNT ,
+		ADVANCE_SCALE ,
+		FEE ,
+		FUND_DIRECTION ,
+		ALTER_TYPE ,
+		ALTER_AMOUNT ,
+		ALTER_MAX_ADVANCE_AMOUNT ,
+		ALTER_CURRENT_ADVANCE_AMOUNT ,
+		ALTER_USED_ADVANCE_AMOUNT ,
+		ALTER_ADVANCE_FROZEN_AMOUNT ,
+		ALTER_AMOUNT_FOR_GRAND_TOTAL ,
+		GRAND_TOTAL_RECEIVE_AMOUNT ,
+		GRAND_TOTAL_FROZEN_AMOUNT ,
+		GRAND_TOTAL_RETURN_AMOUNT ,
+		ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL ,
+		GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT ,
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT ,
+		CLEAR_STAGE ,
+		CLEAR_NO ,
+		REMARK
+		) VALUES (
+		#{migrationTime,jdbcType=TIMESTAMP},
+		0,
+		#{trxTime,jdbcType=TIMESTAMP},
+		#{trxDate,jdbcType=DATE},
+		#{accountTrxType,jdbcType=SMALLINT},
+		#{requestNo,jdbcType=VARCHAR},
+		#{accountNo,jdbcType=CHAR},
+		#{userNo,jdbcType=VARCHAR},
+		#{accountType,jdbcType=SMALLINT},
+		#{maxAdvanceAmount,jdbcType=DECIMAL},
+		#{currentAdvanceAmount,jdbcType=DECIMAL},
+		#{availableAdvanceAmount,jdbcType=DECIMAL},
+		#{usedAdvanceAmount,jdbcType=DECIMAL},
+		#{advanceFrozenAmount,jdbcType=DECIMAL},
+		#{advanceScale,jdbcType=DECIMAL},
+		#{fee,jdbcType=DECIMAL},
+		#{fundDirection,jdbcType=SMALLINT},
+		#{alterType,jdbcType=SMALLINT},
+		#{alterAmount,jdbcType=DECIMAL},
+		#{alterMaxAdvanceAmount,jdbcType=DECIMAL},
+		#{alterCurrentAdvanceAmount,jdbcType=DECIMAL},
+		#{alterUsedAdvanceAmount,jdbcType=DECIMAL},
+		#{alterAdvanceFrozenAmount,jdbcType=DECIMAL},
+		#{alterAmountForGrandTotal,jdbcType=DECIMAL},
+		#{grandTotalReceiveAmount,jdbcType=DECIMAL},
+		#{grandTotalFrozenAmount,jdbcType=DECIMAL},
+		#{grandTotalReturnAmount,jdbcType=DECIMAL},
+		#{alterAmountForAvailableGrandTotal,jdbcType=DECIMAL},
+		#{grandTotalAvailableFrozenAmount,jdbcType=DECIMAL},
+		#{grandTotalAvailableReturnAmount,jdbcType=DECIMAL},
+		#{clearStage,jdbcType=SMALLINT},
+		#{clearNo,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 批量插入记录 -->
+	<insert id="batchInsert" useGeneratedKeys="true" keyProperty="id" parameterType="list">
+		INSERT INTO <include refid="table" /> (
+		ID,
+		MIGRATION_TIME ,
+		VERSION ,
+		CREATE_TIME ,
+		TRX_TIME ,
+		TRX_DATE ,
+		ACCOUNT_TRX_TYPE ,
+		REQUEST_NO ,
+		ACCOUNT_NO ,
+		USER_NO ,
+		ACCOUNT_TYPE ,
+		MAX_ADVANCE_AMOUNT ,
+		CURRENT_ADVANCE_AMOUNT ,
+		AVAILABLE_ADVANCE_AMOUNT ,
+		USED_ADVANCE_AMOUNT ,
+		ADVANCE_FROZEN_AMOUNT ,
+		ADVANCE_SCALE ,
+		FEE ,
+		FUND_DIRECTION ,
+		ALTER_TYPE ,
+		ALTER_AMOUNT ,
+		ALTER_MAX_ADVANCE_AMOUNT ,
+		ALTER_CURRENT_ADVANCE_AMOUNT ,
+		ALTER_USED_ADVANCE_AMOUNT ,
+		ALTER_ADVANCE_FROZEN_AMOUNT ,
+		ALTER_AMOUNT_FOR_GRAND_TOTAL ,
+		GRAND_TOTAL_RECEIVE_AMOUNT ,
+		GRAND_TOTAL_FROZEN_AMOUNT ,
+		GRAND_TOTAL_RETURN_AMOUNT ,
+		ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL ,
+		GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT ,
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT ,
+		CLEAR_STAGE ,
+		CLEAR_NO ,
+		REMARK
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id,jdbcType=TIMESTAMP},
+			#{item.migrationTime,jdbcType=TIMESTAMP},
+			#{item.version,jdbcType=SMALLINT},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.trxTime,jdbcType=TIMESTAMP},
+			#{item.trxDate,jdbcType=DATE},
+			#{item.accountTrxType,jdbcType=SMALLINT},
+			#{item.requestNo,jdbcType=VARCHAR},
+			#{item.accountNo,jdbcType=CHAR},
+			#{item.userNo,jdbcType=VARCHAR},
+			#{item.accountType,jdbcType=SMALLINT},
+			#{item.maxAdvanceAmount,jdbcType=DECIMAL},
+			#{item.currentAdvanceAmount,jdbcType=DECIMAL},
+			#{item.availableAdvanceAmount,jdbcType=DECIMAL},
+			#{item.usedAdvanceAmount,jdbcType=DECIMAL},
+			#{item.advanceFrozenAmount,jdbcType=DECIMAL},
+			#{item.advanceScale,jdbcType=DECIMAL},
+			#{item.fee,jdbcType=DECIMAL},
+			#{item.fundDirection,jdbcType=SMALLINT},
+			#{item.alterType,jdbcType=SMALLINT},
+			#{item.alterAmount,jdbcType=DECIMAL},
+			#{item.alterMaxAdvanceAmount,jdbcType=DECIMAL},
+			#{item.alterCurrentAdvanceAmount,jdbcType=DECIMAL},
+			#{item.alterUsedAdvanceAmount,jdbcType=DECIMAL},
+			#{item.alterAdvanceFrozenAmount,jdbcType=DECIMAL},
+			#{item.alterAmountForGrandTotal,jdbcType=DECIMAL},
+			#{item.grandTotalReceiveAmount,jdbcType=DECIMAL},
+			#{item.grandTotalFrozenAmount,jdbcType=DECIMAL},
+			#{item.grandTotalReturnAmount,jdbcType=DECIMAL},
+			#{item.alterAmountForAvailableGrandTotal,jdbcType=DECIMAL},
+			#{item.grandTotalAvailableFrozenAmount,jdbcType=DECIMAL},
+			#{item.grandTotalAvailableReturnAmount,jdbcType=DECIMAL},
+			#{item.clearStage,jdbcType=SMALLINT},
+			#{item.clearNo,jdbcType=VARCHAR},
+			#{item.remark,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<!--更新-->
+	<update id="update" parameterType="com.junlon.facade.account.entity.AccountAdvanceDetailHistory">
+		UPDATE <include refid="table" /> SET
+		MIGRATION_TIME = #{migrationTime,jdbcType=TIMESTAMP},
+		VERSION = #{version,jdbcType=SMALLINT} + 1,
+		TRX_TIME = #{trxTime,jdbcType=TIMESTAMP},
+		TRX_DATE = #{trxDate,jdbcType=DATE},
+		ACCOUNT_TRX_TYPE = #{accountTrxType,jdbcType=SMALLINT},
+		REQUEST_NO = #{requestNo,jdbcType=VARCHAR},
+		ACCOUNT_NO = #{accountNo,jdbcType=CHAR},
+		USER_NO = #{userNo,jdbcType=VARCHAR},
+		ACCOUNT_TYPE = #{accountType,jdbcType=SMALLINT},
+		MAX_ADVANCE_AMOUNT = #{maxAdvanceAmount,jdbcType=DECIMAL},
+		CURRENT_ADVANCE_AMOUNT = #{currentAdvanceAmount,jdbcType=DECIMAL},
+		AVAILABLE_ADVANCE_AMOUNT = #{availableAdvanceAmount,jdbcType=DECIMAL},
+		USED_ADVANCE_AMOUNT = #{usedAdvanceAmount,jdbcType=DECIMAL},
+		ADVANCE_FROZEN_AMOUNT = #{advanceFrozenAmount,jdbcType=DECIMAL},
+		ADVANCE_SCALE = #{advanceScale,jdbcType=DECIMAL},
+		FEE = #{fee,jdbcType=DECIMAL},
+		FUND_DIRECTION = #{fundDirection,jdbcType=SMALLINT},
+		ALTER_TYPE = #{alterType,jdbcType=SMALLINT},
+		ALTER_AMOUNT = #{alterAmount,jdbcType=DECIMAL},
+		ALTER_MAX_ADVANCE_AMOUNT = #{alterMaxAdvanceAmount,jdbcType=DECIMAL},
+		ALTER_CURRENT_ADVANCE_AMOUNT = #{alterCurrentAdvanceAmount,jdbcType=DECIMAL},
+		ALTER_USED_ADVANCE_AMOUNT = #{alterUsedAdvanceAmount,jdbcType=DECIMAL},
+		ALTER_ADVANCE_FROZEN_AMOUNT = #{alterAdvanceFrozenAmount,jdbcType=DECIMAL},
+		ALTER_AMOUNT_FOR_GRAND_TOTAL = #{alterAmountForGrandTotal,jdbcType=DECIMAL},
+		GRAND_TOTAL_RECEIVE_AMOUNT = #{grandTotalReceiveAmount,jdbcType=DECIMAL},
+		GRAND_TOTAL_FROZEN_AMOUNT = #{grandTotalFrozenAmount,jdbcType=DECIMAL},
+		GRAND_TOTAL_RETURN_AMOUNT = #{grandTotalReturnAmount,jdbcType=DECIMAL},
+		ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL = #{alterAmountForAvailableGrandTotal,jdbcType=DECIMAL},
+		GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT = #{grandTotalAvailableFrozenAmount,jdbcType=DECIMAL},
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT = #{grandTotalAvailableReturnAmount,jdbcType=DECIMAL},
+		CLEAR_STAGE = #{clearStage,jdbcType=SMALLINT},
+		CLEAR_NO = #{clearNo,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR}
+		WHERE ID = #{id,jdbcType=BIGINT} and VERSION = #{version,jdbcType=SMALLINT}
+	</update>
+
+	<!-- 只更新不为null的属性 -->
+	<update id="updateIfNotNull" parameterType="com.junlon.facade.account.entity.AccountAdvanceDetailHistory">
+		UPDATE <include refid="table" />
+		<set>
+			<if test="migrationTime != null">
+				MIGRATION_TIME =#{migrationTime,jdbcType=TIMESTAMP},
+			</if>
+			VERSION = #{version,jdbcType=SMALLINT} +1,
+			<if test="trxTime != null">
+				TRX_TIME =#{trxTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="trxDate != null">
+				TRX_DATE =#{trxDate,jdbcType=DATE},
+			</if>
+			<if test="accountTrxType != null">
+				ACCOUNT_TRX_TYPE =#{accountTrxType,jdbcType=SMALLINT},
+			</if>
+			<if test="requestNo != null">
+				REQUEST_NO =#{requestNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNo != null">
+				ACCOUNT_NO =#{accountNo,jdbcType=CHAR},
+			</if>
+			<if test="userNo != null">
+				USER_NO =#{userNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountType != null">
+				ACCOUNT_TYPE =#{accountType,jdbcType=SMALLINT},
+			</if>
+			<if test="maxAdvanceAmount != null">
+				MAX_ADVANCE_AMOUNT =#{maxAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="currentAdvanceAmount != null">
+				CURRENT_ADVANCE_AMOUNT =#{currentAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="availableAdvanceAmount != null">
+				AVAILABLE_ADVANCE_AMOUNT =#{availableAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="usedAdvanceAmount != null">
+				USED_ADVANCE_AMOUNT =#{usedAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="advanceFrozenAmount != null">
+				ADVANCE_FROZEN_AMOUNT =#{advanceFrozenAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="advanceScale != null">
+				ADVANCE_SCALE =#{advanceScale,jdbcType=DECIMAL},
+			</if>
+			<if test="fee != null">
+				FEE =#{fee,jdbcType=DECIMAL},
+			</if>
+			<if test="fundDirection != null">
+				FUND_DIRECTION =#{fundDirection,jdbcType=SMALLINT},
+			</if>
+			<if test="alterType != null">
+				ALTER_TYPE =#{alterType,jdbcType=SMALLINT},
+			</if>
+			<if test="alterAmount != null">
+				ALTER_AMOUNT =#{alterAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterMaxAdvanceAmount != null">
+				ALTER_MAX_ADVANCE_AMOUNT =#{alterMaxAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterCurrentAdvanceAmount != null">
+				ALTER_CURRENT_ADVANCE_AMOUNT =#{alterCurrentAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterUsedAdvanceAmount != null">
+				ALTER_USED_ADVANCE_AMOUNT =#{alterUsedAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterAdvanceFrozenAmount != null">
+				ALTER_ADVANCE_FROZEN_AMOUNT =#{alterAdvanceFrozenAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterAmountForGrandTotal != null">
+				ALTER_AMOUNT_FOR_GRAND_TOTAL =#{alterAmountForGrandTotal,jdbcType=DECIMAL},
+			</if>
+			<if test="grandTotalReceiveAmount != null">
+				GRAND_TOTAL_RECEIVE_AMOUNT =#{grandTotalReceiveAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="grandTotalFrozenAmount != null">
+				GRAND_TOTAL_FROZEN_AMOUNT =#{grandTotalFrozenAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="grandTotalReturnAmount != null">
+				GRAND_TOTAL_RETURN_AMOUNT =#{grandTotalReturnAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterAmountForAvailableGrandTotal != null">
+				ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL =#{alterAmountForAvailableGrandTotal,jdbcType=DECIMAL},
+			</if>
+			<if test="grandTotalAvailableFrozenAmount != null">
+				GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT =#{grandTotalAvailableFrozenAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="grandTotalAvailableReturnAmount != null">
+				GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT =#{grandTotalAvailableReturnAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="clearStage != null">
+				CLEAR_STAGE =#{clearStage,jdbcType=SMALLINT},
+			</if>
+			<if test="clearNo != null">
+				CLEAR_NO =#{clearNo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK =#{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=BIGINT} and VERSION = #{version,jdbcType=SMALLINT}
+	</update>
+
+	<!-- 不分页查询 -->
+	<select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by ID desc]]>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by ID desc]]>
+	</select>
+
+	<!-- 分页查询时计算总记录数 -->
+	<select id="listPageCount" parameterType="java.util.Map" resultType="long">
+		select count(1) from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<!-- 根据id查询 -->
+	<select id="getById" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+		FROM <include refid="table" />
+		WHERE ID = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!--按id主键删除-->
+	<delete id="deleteById">
+		DELETE FROM <include refid="table" /> WHERE ID = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<!-- ↑↑↑↑↑↑ 如果有新增字段、删除字段、修改字段 以上内容可用模板生成新内容后直接替换 ↑↑↑↑↑↑ -->
+	<!-- ↓↓↓↓↓↓ 以下内容是根据需求手动添加或修改的，请勿使用模板内容直接覆盖 ↓↓↓↓↓↓ -->
+
+	<sql id="condition_sql">
+		<if test="id != null">
+			and ID = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="migrationTime != null">
+			and MIGRATION_TIME = #{migrationTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="version != null">
+			and VERSION = #{version,jdbcType=SMALLINT}
+		</if>
+		<if test="createTime != null">
+			and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="trxTime != null">
+			and TRX_TIME = #{trxTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="trxDate != null">
+			and TRX_DATE = #{trxDate,jdbcType=DATE}
+		</if>
+		<if test="userNo != null and userNo !=''">
+			and USER_NO = #{userNo,jdbcType=VARCHAR}
+		</if>
+		<if test="requestNo != null and requestNo !=''">
+			and REQUEST_NO = #{requestNo,jdbcType=VARCHAR}
+		</if>
+		<if test="accountTrxType != null">
+			and ACCOUNT_TRX_TYPE = #{accountTrxType,jdbcType=SMALLINT}
+		</if>
+		<if test="accountNo != null and accountNo !=''">
+			and ACCOUNT_NO = #{accountNo,jdbcType=CHAR}
+		</if>
+		<if test="accountType != null">
+			and ACCOUNT_TYPE = #{accountType,jdbcType=SMALLINT}
+		</if>
+		<if test="maxAdvanceAmount != null">
+			and MAX_ADVANCE_AMOUNT = #{maxAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="currentAdvanceAmount != null">
+			and CURRENT_ADVANCE_AMOUNT = #{currentAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="availableAdvanceAmount != null">
+			and AVAILABLE_ADVANCE_AMOUNT = #{availableAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="usedAdvanceAmount != null">
+			and USED_ADVANCE_AMOUNT = #{usedAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="advanceFrozenAmount != null">
+			and ADVANCE_FROZEN_AMOUNT = #{advanceFrozenAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="advanceScale != null">
+			and ADVANCE_SCALE = #{advanceScale,jdbcType=DECIMAL}
+		</if>
+		<if test="fee != null">
+			and FEE = #{fee,jdbcType=DECIMAL}
+		</if>
+		<if test="fundDirection != null">
+			and FUND_DIRECTION = #{fundDirection,jdbcType=SMALLINT}
+		</if>
+		<if test="alterType != null">
+			and ALTER_TYPE = #{alterType,jdbcType=SMALLINT}
+		</if>
+		<if test="alterAmount != null">
+			and ALTER_AMOUNT = #{alterAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterMaxAdvanceAmount != null">
+			and ALTER_MAX_ADVANCE_AMOUNT = #{alterMaxAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterCurrentAdvanceAmount != null">
+			and ALTER_CURRENT_ADVANCE_AMOUNT = #{alterCurrentAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterUsedAdvanceAmount != null">
+			and ALTER_USED_ADVANCE_AMOUNT = #{alterUsedAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterAdvanceFrozenAmount != null">
+			and ALTER_ADVANCE_FROZEN_AMOUNT = #{alterAdvanceFrozenAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterAmountForGrandTotal != null">
+			and ALTER_AMOUNT_FOR_GRAND_TOTAL = #{alterAmountForGrandTotal,jdbcType=DECIMAL}
+		</if>
+		<if test="grandTotalReceiveAmount != null">
+			and GRAND_TOTAL_RECEIVE_AMOUNT = #{grandTotalReceiveAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="grandTotalFrozenAmount != null">
+			and GRAND_TOTAL_FROZEN_AMOUNT = #{grandTotalFrozenAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="grandTotalReturnAmount != null">
+			and GRAND_TOTAL_RETURN_AMOUNT = #{grandTotalReturnAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterAmountForAvailableGrandTotal != null">
+			and ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL = #{alterAmountForAvailableGrandTotal,jdbcType=DECIMAL}
+		</if>
+		<if test="grandTotalAvailableFrozenAmount != null">
+			and GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT = #{grandTotalAvailableFrozenAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="grandTotalAvailableReturnAmount != null">
+			and GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT = #{grandTotalAvailableReturnAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="clearStage != null">
+			and CLEAR_STAGE = #{clearStage,jdbcType=SMALLINT}
+		</if>
+		<if test="clearNo != null and clearNo !=''">
+			and CLEAR_NO = #{clearNo,jdbcType=VARCHAR}
+		</if>
+		<if test="remark != null and remark !=''">
+			and REMARK = #{remark,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+	<insert id="migrateDetailAccountDetailByIds" parameterType="map">
+		INSERT INTO <include refid="table" />
+		(ID,MIGRATION_TIME,VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,
+		ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,
+		MAX_ADVANCE_AMOUNT,CURRENT_ADVANCE_AMOUNT,AVAILABLE_ADVANCE_AMOUNT,USED_ADVANCE_AMOUNT,ADVANCE_FROZEN_AMOUNT,
+		ADVANCE_SCALE,FEE,FUND_DIRECTION,ALTER_TYPE,ALTER_AMOUNT,
+		ALTER_MAX_ADVANCE_AMOUNT,ALTER_CURRENT_ADVANCE_AMOUNT,ALTER_USED_ADVANCE_AMOUNT,ALTER_ADVANCE_FROZEN_AMOUNT,ALTER_AMOUNT_FOR_GRAND_TOTAL,
+		GRAND_TOTAL_RECEIVE_AMOUNT,GRAND_TOTAL_FROZEN_AMOUNT,GRAND_TOTAL_RETURN_AMOUNT,ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,CLEAR_STAGE,CLEAR_NO,REMARK)
+		SELECT ID,now(),VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,
+		ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,
+		MAX_ADVANCE_AMOUNT,CURRENT_ADVANCE_AMOUNT,AVAILABLE_ADVANCE_AMOUNT,USED_ADVANCE_AMOUNT,ADVANCE_FROZEN_AMOUNT,
+		ADVANCE_SCALE,FEE,FUND_DIRECTION,ALTER_TYPE,ALTER_AMOUNT,
+		ALTER_MAX_ADVANCE_AMOUNT,ALTER_CURRENT_ADVANCE_AMOUNT,ALTER_USED_ADVANCE_AMOUNT,ALTER_ADVANCE_FROZEN_AMOUNT,ALTER_AMOUNT_FOR_GRAND_TOTAL,
+		GRAND_TOTAL_RECEIVE_AMOUNT,GRAND_TOTAL_FROZEN_AMOUNT,GRAND_TOTAL_RETURN_AMOUNT,ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,CLEAR_STAGE,CLEAR_NO,REMARK
+		FROM tbl_account_advance_detail
+		WHERE ID IN
+		<foreach collection="idsList" item="item" index="index" open="(" separator="," close=")">
+			#{item,jdbcType=BIGINT}
+		</foreach>
+	</insert>
+
+	<insert id="migrationFromAccountDetailByIds" parameterType="map">
+		INSERT INTO <include refid="table" />
+		(ID,MIGRATION_TIME,VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,
+		ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,
+		MAX_ADVANCE_AMOUNT,CURRENT_ADVANCE_AMOUNT,AVAILABLE_ADVANCE_AMOUNT,USED_ADVANCE_AMOUNT,ADVANCE_FROZEN_AMOUNT,
+		ADVANCE_SCALE,FEE,FUND_DIRECTION,ALTER_TYPE,ALTER_AMOUNT,
+		ALTER_MAX_ADVANCE_AMOUNT,ALTER_CURRENT_ADVANCE_AMOUNT,ALTER_USED_ADVANCE_AMOUNT,ALTER_ADVANCE_FROZEN_AMOUNT,ALTER_AMOUNT_FOR_GRAND_TOTAL,
+		GRAND_TOTAL_RECEIVE_AMOUNT,GRAND_TOTAL_FROZEN_AMOUNT,GRAND_TOTAL_RETURN_AMOUNT,ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,CLEAR_STAGE,CLEAR_NO,REMARK)
+		SELECT ID,now(),VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,
+		ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,
+		MAX_ADVANCE_AMOUNT,CURRENT_ADVANCE_AMOUNT,AVAILABLE_ADVANCE_AMOUNT,USED_ADVANCE_AMOUNT,ADVANCE_FROZEN_AMOUNT,
+		ADVANCE_SCALE,FEE,FUND_DIRECTION,ALTER_TYPE,ALTER_AMOUNT,
+		ALTER_MAX_ADVANCE_AMOUNT,ALTER_CURRENT_ADVANCE_AMOUNT,ALTER_USED_ADVANCE_AMOUNT,ALTER_ADVANCE_FROZEN_AMOUNT,ALTER_AMOUNT_FOR_GRAND_TOTAL,
+		GRAND_TOTAL_RECEIVE_AMOUNT,GRAND_TOTAL_FROZEN_AMOUNT,GRAND_TOTAL_RETURN_AMOUNT,ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,
+		GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,CLEAR_STAGE,CLEAR_NO,REMARK
+		FROM tbl_account_advance_detail
+		WHERE ID IN <foreach collection="detailIdList" item="item" index="index" open="(" separator="," close=")">#{item,jdbcType=BIGINT}</foreach>
+	</insert>
+</mapper>
+

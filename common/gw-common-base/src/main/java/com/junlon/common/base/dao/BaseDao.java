@@ -127,4 +127,18 @@ public interface BaseDao<T> {
 	 * @return
 	 */
 	String getSeqNextValue(String seqName);
+
+	/**
+	 * key:value = 主键:实体对象 的键值对，其中key是property参数指定的主键名的值
+	 * @param paramMap
+	 * @return
+	 */
+	public Map<Long, T> mapById(Map<String, Object> paramMap);
+
+	/**
+	 * key:value = 某个值为字符串的字段:实体对象 的键值对，其中key是property参数指定的字段名的值
+	 * @param paramMap
+	 * @return
+	 */
+	public Map<String, T> mapBy(Map<String, Object> paramMap, String property);
 }

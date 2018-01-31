@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="com.junlon.core.account.dao.impl.AccountAdvanceDetailDaoImpl">
+
+	<sql id="table"> tbl_account_advance_detail </sql>
+	
+	<resultMap id="beanMap" type="com.junlon.facade.account.entity.AccountAdvanceDetail">
+        <id property="id" column="ID" />
+        <result property="version" column="VERSION"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="trxTime" column="TRX_TIME"/>
+        <result property="trxDate" column="TRX_DATE"/>
+        <result property="accountTrxType" column="ACCOUNT_TRX_TYPE"/>
+        <result property="requestNo" column="REQUEST_NO"/>
+        <result property="accountNo" column="ACCOUNT_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="accountType" column="ACCOUNT_TYPE"/>
+        <result property="maxAdvanceAmount" column="MAX_ADVANCE_AMOUNT"/>
+        <result property="currentAdvanceAmount" column="CURRENT_ADVANCE_AMOUNT"/>
+        <result property="availableAdvanceAmount" column="AVAILABLE_ADVANCE_AMOUNT"/>
+        <result property="usedAdvanceAmount" column="USED_ADVANCE_AMOUNT"/>
+        <result property="advanceFrozenAmount" column="ADVANCE_FROZEN_AMOUNT"/>
+        <result property="advanceScale" column="ADVANCE_SCALE"/>
+        <result property="fee" column="FEE"/>
+        <result property="fundDirection" column="FUND_DIRECTION"/>
+        <result property="alterType" column="ALTER_TYPE"/>
+        <result property="alterAmount" column="ALTER_AMOUNT"/>
+        <result property="alterMaxAdvanceAmount" column="ALTER_MAX_ADVANCE_AMOUNT"/>
+        <result property="alterCurrentAdvanceAmount" column="ALTER_CURRENT_ADVANCE_AMOUNT"/>
+        <result property="alterUsedAdvanceAmount" column="ALTER_USED_ADVANCE_AMOUNT"/>
+        <result property="alterAdvanceFrozenAmount" column="ALTER_ADVANCE_FROZEN_AMOUNT"/>
+        <result property="alterAmountForGrandTotal" column="ALTER_AMOUNT_FOR_GRAND_TOTAL"/>
+        <result property="grandTotalReceiveAmount" column="GRAND_TOTAL_RECEIVE_AMOUNT"/>
+        <result property="grandTotalFrozenAmount" column="GRAND_TOTAL_FROZEN_AMOUNT"/>
+        <result property="grandTotalReturnAmount" column="GRAND_TOTAL_RETURN_AMOUNT"/>
+        <result property="alterAmountForAvailableGrandTotal" column="ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL"/>
+        <result property="grandTotalAvailableFrozenAmount" column="GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT"/>
+        <result property="grandTotalAvailableReturnAmount" column="GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT"/>
+        <result property="clearStage" column="CLEAR_STAGE"/>
+        <result property="clearNo" column="CLEAR_NO"/>
+        <result property="remark" column="REMARK"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,MAX_ADVANCE_AMOUNT,CURRENT_ADVANCE_AMOUNT,AVAILABLE_ADVANCE_AMOUNT,USED_ADVANCE_AMOUNT,ADVANCE_FROZEN_AMOUNT,ADVANCE_SCALE,FEE,FUND_DIRECTION,ALTER_TYPE,ALTER_AMOUNT,ALTER_MAX_ADVANCE_AMOUNT,ALTER_CURRENT_ADVANCE_AMOUNT,ALTER_USED_ADVANCE_AMOUNT,ALTER_ADVANCE_FROZEN_AMOUNT,ALTER_AMOUNT_FOR_GRAND_TOTAL,GRAND_TOTAL_RECEIVE_AMOUNT,GRAND_TOTAL_FROZEN_AMOUNT,GRAND_TOTAL_RETURN_AMOUNT,ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,CLEAR_STAGE,CLEAR_NO,REMARK
+	</sql>
+	<sql id="condition_sql">	
+	       <if test="id != null and id != ''"> AND ID = #{id}</if>
+	       <if test="version != null and version != ''"> AND VERSION = #{version}</if>
+	       <if test="createTimeBegin != null and createTimeBegin != ''"> AND CREATE_TIME >= #{createTimeBegin}</if>
+		   <if test="createTimeEnd != null and createTimeEnd != ''"> AND CREATE_TIME &lt;= #{createTimeEnd}</if>
+	       <if test="trxTimeBegin != null and trxTimeBegin != ''"> AND TRX_TIME >= #{trxTimeBegin}</if>
+		   <if test="trxTimeEnd != null and trxTimeEnd != ''"> AND TRX_TIME &lt;= #{trxTimeEnd}</if>
+	       <if test="trxDateBegin != null and trxDateBegin != ''"> AND TRX_DATE >= #{trxDateBegin}</if>
+		   <if test="trxDateEnd != null and trxDateEnd != ''"> AND TRX_DATE &lt;= #{trxDateEnd}</if>
+	       <if test="accountTrxType != null and accountTrxType != ''"> AND ACCOUNT_TRX_TYPE = #{accountTrxType}</if>
+	       <if test="requestNo != null and requestNo != ''"> AND REQUEST_NO = #{requestNo}</if>
+	       <if test="accountNo != null and accountNo != ''"> AND ACCOUNT_NO = #{accountNo}</if>
+	       <if test="userNo != null and userNo != ''"> AND USER_NO = #{userNo}</if>
+	       <if test="accountType != null and accountType != ''"> AND ACCOUNT_TYPE = #{accountType}</if>
+	       <if test="maxAdvanceAmount != null and maxAdvanceAmount != ''"> AND MAX_ADVANCE_AMOUNT = #{maxAdvanceAmount}</if>
+	       <if test="currentAdvanceAmount != null and currentAdvanceAmount != ''"> AND CURRENT_ADVANCE_AMOUNT = #{currentAdvanceAmount}</if>
+	       <if test="availableAdvanceAmount != null and availableAdvanceAmount != ''"> AND AVAILABLE_ADVANCE_AMOUNT = #{availableAdvanceAmount}</if>
+	       <if test="usedAdvanceAmount != null and usedAdvanceAmount != ''"> AND USED_ADVANCE_AMOUNT = #{usedAdvanceAmount}</if>
+	       <if test="advanceFrozenAmount != null and advanceFrozenAmount != ''"> AND ADVANCE_FROZEN_AMOUNT = #{advanceFrozenAmount}</if>
+	       <if test="advanceScale != null and advanceScale != ''"> AND ADVANCE_SCALE = #{advanceScale}</if>
+	       <if test="fee != null and fee != ''"> AND FEE = #{fee}</if>
+	       <if test="fundDirection != null and fundDirection != ''"> AND FUND_DIRECTION = #{fundDirection}</if>
+	       <if test="alterType != null and alterType != ''"> AND ALTER_TYPE = #{alterType}</if>
+	       <if test="alterAmount != null and alterAmount != ''"> AND ALTER_AMOUNT = #{alterAmount}</if>
+	       <if test="alterMaxAdvanceAmount != null and alterMaxAdvanceAmount != ''"> AND ALTER_MAX_ADVANCE_AMOUNT = #{alterMaxAdvanceAmount}</if>
+	       <if test="alterCurrentAdvanceAmount != null and alterCurrentAdvanceAmount != ''"> AND ALTER_CURRENT_ADVANCE_AMOUNT = #{alterCurrentAdvanceAmount}</if>
+	       <if test="alterUsedAdvanceAmount != null and alterUsedAdvanceAmount != ''"> AND ALTER_USED_ADVANCE_AMOUNT = #{alterUsedAdvanceAmount}</if>
+	       <if test="alterAdvanceFrozenAmount != null and alterAdvanceFrozenAmount != ''"> AND ALTER_ADVANCE_FROZEN_AMOUNT = #{alterAdvanceFrozenAmount}</if>
+	       <if test="alterAmountForGrandTotal != null and alterAmountForGrandTotal != ''"> AND ALTER_AMOUNT_FOR_GRAND_TOTAL = #{alterAmountForGrandTotal}</if>
+	       <if test="grandTotalReceiveAmount != null and grandTotalReceiveAmount != ''"> AND GRAND_TOTAL_RECEIVE_AMOUNT = #{grandTotalReceiveAmount}</if>
+	       <if test="grandTotalFrozenAmount != null and grandTotalFrozenAmount != ''"> AND GRAND_TOTAL_FROZEN_AMOUNT = #{grandTotalFrozenAmount}</if>
+	       <if test="grandTotalReturnAmount != null and grandTotalReturnAmount != ''"> AND GRAND_TOTAL_RETURN_AMOUNT = #{grandTotalReturnAmount}</if>
+	       <if test="alterAmountForAvailableGrandTotal != null and alterAmountForAvailableGrandTotal != ''"> AND ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL = #{alterAmountForAvailableGrandTotal}</if>
+	       <if test="grandTotalAvailableFrozenAmount != null and grandTotalAvailableFrozenAmount != ''"> AND GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT = #{grandTotalAvailableFrozenAmount}</if>
+	       <if test="grandTotalAvailableReturnAmount != null and grandTotalAvailableReturnAmount != ''"> AND GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT = #{grandTotalAvailableReturnAmount}</if>
+	       <if test="clearStage != null and clearStage != ''"> AND CLEAR_STAGE = #{clearStage}</if>
+	       <if test="clearNo != null and clearNo != ''"> AND CLEAR_NO = #{clearNo}</if>
+	       <if test="remark != null and remark != ''"> AND REMARK = #{remark}</if>
+	       <!-- 是否行锁，要放在查询条件最后 -->
+		   <if test="isPessimist != null and isPessimist == true "> for update</if>
+	</sql>
+	
+	<insert id="insert" parameterType="com.junlon.facade.account.entity.AccountAdvanceDetail">
+		INSERT INTO tbl_account_advance_detail
+		(VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,MAX_ADVANCE_AMOUNT,CURRENT_ADVANCE_AMOUNT,AVAILABLE_ADVANCE_AMOUNT,USED_ADVANCE_AMOUNT,ADVANCE_FROZEN_AMOUNT,ADVANCE_SCALE,FEE,FUND_DIRECTION,ALTER_TYPE,ALTER_AMOUNT,ALTER_MAX_ADVANCE_AMOUNT,ALTER_CURRENT_ADVANCE_AMOUNT,ALTER_USED_ADVANCE_AMOUNT,ALTER_ADVANCE_FROZEN_AMOUNT,ALTER_AMOUNT_FOR_GRAND_TOTAL,GRAND_TOTAL_RECEIVE_AMOUNT,GRAND_TOTAL_FROZEN_AMOUNT,GRAND_TOTAL_RETURN_AMOUNT,ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,CLEAR_STAGE,CLEAR_NO,REMARK)
+		VALUES
+		(#{version} ,#{createTime} ,#{trxTime} ,#{trxDate} ,#{accountTrxType} ,#{requestNo} ,#{accountNo} ,#{userNo} ,#{accountType} ,#{maxAdvanceAmount} ,#{currentAdvanceAmount} ,#{availableAdvanceAmount} ,#{usedAdvanceAmount} ,#{advanceFrozenAmount} ,#{advanceScale} ,#{fee} ,#{fundDirection} ,#{alterType} ,#{alterAmount} ,#{alterMaxAdvanceAmount} ,#{alterCurrentAdvanceAmount} ,#{alterUsedAdvanceAmount} ,#{alterAdvanceFrozenAmount} ,#{alterAmountForGrandTotal} ,#{grandTotalReceiveAmount} ,#{grandTotalFrozenAmount} ,#{grandTotalReturnAmount} ,#{alterAmountForAvailableGrandTotal} ,#{grandTotalAvailableFrozenAmount} ,#{grandTotalAvailableReturnAmount} ,#{clearStage} ,#{clearNo} ,#{remark}  )
+    </insert>
+    
+    <insert id="batchInsert" parameterType="com.junlon.facade.account.entity.AccountAdvanceDetail">
+		insert into	tbl_account_advance_detail
+		(VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,MAX_ADVANCE_AMOUNT,CURRENT_ADVANCE_AMOUNT,AVAILABLE_ADVANCE_AMOUNT,USED_ADVANCE_AMOUNT,ADVANCE_FROZEN_AMOUNT,ADVANCE_SCALE,FEE,FUND_DIRECTION,ALTER_TYPE,ALTER_AMOUNT,ALTER_MAX_ADVANCE_AMOUNT,ALTER_CURRENT_ADVANCE_AMOUNT,ALTER_USED_ADVANCE_AMOUNT,ALTER_ADVANCE_FROZEN_AMOUNT,ALTER_AMOUNT_FOR_GRAND_TOTAL,GRAND_TOTAL_RECEIVE_AMOUNT,GRAND_TOTAL_FROZEN_AMOUNT,GRAND_TOTAL_RETURN_AMOUNT,ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL,GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT,GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT,CLEAR_STAGE,CLEAR_NO,REMARK)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{version} ,#{createTime} ,#{trxTime} ,#{trxDate} ,#{accountTrxType} ,#{requestNo} ,#{accountNo} ,#{userNo} ,#{accountType} ,#{maxAdvanceAmount} ,#{currentAdvanceAmount} ,#{availableAdvanceAmount} ,#{usedAdvanceAmount} ,#{advanceFrozenAmount} ,#{advanceScale} ,#{fee} ,#{fundDirection} ,#{alterType} ,#{alterAmount} ,#{alterMaxAdvanceAmount} ,#{alterCurrentAdvanceAmount} ,#{alterUsedAdvanceAmount} ,#{alterAdvanceFrozenAmount} ,#{alterAmountForGrandTotal} ,#{grandTotalReceiveAmount} ,#{grandTotalFrozenAmount} ,#{grandTotalReturnAmount} ,#{alterAmountForAvailableGrandTotal} ,#{grandTotalAvailableFrozenAmount} ,#{grandTotalAvailableReturnAmount} ,#{clearStage} ,#{clearNo} ,#{remark}  )
+		</foreach>
+	</insert>
+	
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="com.junlon.facade.account.entity.AccountAdvanceDetail">
+		update tbl_account_advance_detail set
+	        VERSION = #{version} + 1 ,
+	        CREATE_TIME = #{createTime} ,
+	        TRX_TIME = #{trxTime} ,
+	        TRX_DATE = #{trxDate} ,
+	        ACCOUNT_TRX_TYPE = #{accountTrxType} ,
+	        REQUEST_NO = #{requestNo} ,
+	        ACCOUNT_NO = #{accountNo} ,
+	        USER_NO = #{userNo} ,
+	        ACCOUNT_TYPE = #{accountType} ,
+	        MAX_ADVANCE_AMOUNT = #{maxAdvanceAmount} ,
+	        CURRENT_ADVANCE_AMOUNT = #{currentAdvanceAmount} ,
+	        AVAILABLE_ADVANCE_AMOUNT = #{availableAdvanceAmount} ,
+	        USED_ADVANCE_AMOUNT = #{usedAdvanceAmount} ,
+	        ADVANCE_FROZEN_AMOUNT = #{advanceFrozenAmount} ,
+	        ADVANCE_SCALE = #{advanceScale} ,
+	        FEE = #{fee} ,
+	        FUND_DIRECTION = #{fundDirection} ,
+	        ALTER_TYPE = #{alterType} ,
+	        ALTER_AMOUNT = #{alterAmount} ,
+	        ALTER_MAX_ADVANCE_AMOUNT = #{alterMaxAdvanceAmount} ,
+	        ALTER_CURRENT_ADVANCE_AMOUNT = #{alterCurrentAdvanceAmount} ,
+	        ALTER_USED_ADVANCE_AMOUNT = #{alterUsedAdvanceAmount} ,
+	        ALTER_ADVANCE_FROZEN_AMOUNT = #{alterAdvanceFrozenAmount} ,
+	        ALTER_AMOUNT_FOR_GRAND_TOTAL = #{alterAmountForGrandTotal} ,
+	        GRAND_TOTAL_RECEIVE_AMOUNT = #{grandTotalReceiveAmount} ,
+	        GRAND_TOTAL_FROZEN_AMOUNT = #{grandTotalFrozenAmount} ,
+	        GRAND_TOTAL_RETURN_AMOUNT = #{grandTotalReturnAmount} ,
+	        ALTER_AMOUNT_FOR_AVAILABLE_GRAND_TOTAL = #{alterAmountForAvailableGrandTotal} ,
+	        GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT = #{grandTotalAvailableFrozenAmount} ,
+	        GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT = #{grandTotalAvailableReturnAmount} ,
+	        CLEAR_STAGE = #{clearStage} ,
+	        CLEAR_NO = #{clearNo} ,
+	        REMARK = #{remark} 
+        <where>
+	        ID = #{id} AND VERSION = #{version} 
+        </where> 
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from tbl_account_advance_detail
+		where 
+	        ID = #{id} 
+	</delete>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="beanMap">
+		select <include refid="Base_Column_List" />
+		from tbl_account_advance_detail
+		where 
+	        ID = #{id} 
+	</select>
+	
+	<select id="listBy" parameterType="java.util.Map" resultMap="beanMap">
+		select <include refid="Base_Column_List" />
+		from tbl_account_advance_detail
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<select id="listPage" parameterType="java.util.Map" resultMap="beanMap">
+		select <include refid="Base_Column_List" /> 
+		from tbl_account_advance_detail
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by ID desc]]>
+	</select>
+	
+	<!-- 获取当日交易入账汇总数据、当日出款冻结汇总数据、当日出款退回汇总数据 -->
+	<select id="getCurrentSummeryAmount" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT IFNULL(SUM(IF(aad.ALTER_TYPE = 1,aad.ALTER_AMOUNT,0)),0) AS summeryCreditAmount,  <!-- 当日交易入账汇总金额 -->
+			   IFNULL(SUM(IF(aad.ALTER_TYPE = 2,aad.ALTER_AMOUNT,0)),0) AS summeryFrozenAmount,  <!-- 当日出款冻结汇总金额 -->
+			   IFNULL(SUM(IF(aad.ALTER_TYPE = 3,aad.ALTER_AMOUNT,0)),0) AS summeryDebitSuccessAmount,<!-- 当日出款成功汇总金额 -->
+			   IFNULL(SUM(IF(aad.ALTER_TYPE = 4,aad.ALTER_AMOUNT,0)),0) AS summeryReturnAmount,  <!-- 当日出款退回汇总金额 -->
+			   aad.USER_NO AS userNo,
+			   COUNT(aad.ID) AS recordCounts,
+			   MIN(aad.ID) AS minId,
+			   MAX(aad.ID) AS maxId
+		FROM tbl_account_advance_detail aad
+		WHERE aad.USER_NO = #{userNo}
+		AND aad.CLEAR_STAGE = #{clearStage}
+		AND aad.TRX_DATE <![CDATA[ <= ]]> #{summeryDate}
+	</select>
+	
+	<!-- 批量更新垫资账户明细中的清算状态为已清算 -->
+	<update id="updateAdvanceDetailStateToFinish" parameterType="java.util.Map">
+		UPDATE tbl_account_advance_detail
+      	SET CLEAR_STAGE = #{clearStage },
+      	CLEAR_NO = #{clearNo}
+		WHERE USER_NO = #{userNo}
+		AND CLEAR_STAGE = 2
+		AND TRX_DATE <![CDATA[ <= ]]> #{summeryDate}
+		AND ID >= #{minId}
+		AND ID <![CDATA[ <= ]]> #{maxId}
+	</update>
+
+	<select id="calNeedMigrationDates" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT TRX_DATE
+		FROM <include refid="table" />
+		WHERE TRX_DATE <![CDATA[ <= ]]> #{calNeedMigrationDates,jdbcType=DATE}
+		GROUP BY TRX_DATE
+	</select>
+
+	<select id="getDetailMigrationVoByDate" parameterType="java.util.Map" resultType="com.junlon.facade.account.vo.AccountMigrationVo">
+		SELECT
+		TRX_DATE as migrationDate,
+		MIN(ID) as minId,
+		MAX(ID) as maxId,
+		COUNT(ID) as preMigrationNum
+		FROM <include refid="table" />
+		WHERE TRX_DATE = #{migrationDate,jdbcType=DATE} and CLEAR_STAGE in (1,3)
+	</select>
+
+	<select id="queryNeedMigrationIdsList" parameterType="com.junlon.facade.account.vo.AccountMigrationVo" resultType="java.lang.Long">
+		SELECT ID
+		FROM <include refid="table" />
+		WHERE TRX_DATE = #{migrationDate,jdbcType=DATE} AND ID BETWEEN #{currentMinId,jdbcType=BIGINT} AND #{currentMaxId,jdbcType=BIGINT} AND CLEAR_STAGE in (1,3)
+	</select>
+
+	<delete id="deleteDetailByIdsList" parameterType="java.util.Map">
+		DELETE FROM <include refid="table" />
+		WHERE ID IN
+		<foreach collection="idsList" item="item" index="index" open="(" separator="," close=")">
+			#{item,jdbcType=BIGINT}
+		</foreach>
+	</delete>
+
+</mapper>
+

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="com.junlon.core.account.dao.impl.AccountDetailDaoImpl">
+
+	<sql id="table"> tbl_account_detail </sql>
+
+	<resultMap id="beanMap" type="com.junlon.facade.account.entity.AccountDetail">
+        <id property="id" column="ID" />
+        <result property="version" column="VERSION"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="trxTime" column="TRX_TIME"/>
+        <result property="trxDate" column="TRX_DATE"/>
+        <result property="accountTrxType" column="ACCOUNT_TRX_TYPE"/>
+        <result property="requestNo" column="REQUEST_NO"/>
+        <result property="accountNo" column="ACCOUNT_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="accountType" column="ACCOUNT_TYPE"/>
+        <result property="balance" column="BALANCE"/>
+        <result property="unbalance" column="UNBALANCE"/>
+        <result property="availablesettamount" column="AVAILABLESETTAMOUNT"/>
+        <result property="unsettleAmount" column="UNSETTLE_AMOUNT"/>
+        <result property="rsmAmount" column="RSM_AMOUNT"/>
+        <result property="availablesettamountFrozen" column="AVAILABLESETTAMOUNT_FROZEN"/>
+        <result property="alterAmount" column="ALTER_AMOUNT"/>
+        <result property="alterBalance" column="ALTER_BALANCE"/>
+        <result property="alterUnbalance" column="ALTER_UNBALANCE"/>
+        <result property="alterAvailablesettamount" column="ALTER_AVAILABLESETTAMOUNT"/>
+        <result property="alterUnsettleAmount" column="ALTER_UNSETTLE_AMOUNT"/>
+        <result property="alterRsmAmount" column="ALTER_RSM_AMOUNT"/>
+        <result property="alterAdvanceAmount" column="ALTER_ADVANCE_AMOUNT"/>
+        <result property="alterUnadvanceAmount" column="ALTER_UNADVANCE_AMOUNT"/>
+        <result property="alterAvailablesettamountFrozen" column="ALTER_AVAILABLESETTAMOUNT_FROZEN"/>
+        <result property="alterType" column="ALTER_TYPE"/>
+        <result property="fee" column="FEE"/>
+        <result property="fundDirection" column="FUND_DIRECTION"/>
+        <result property="remark" column="REMARK"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID,VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,BALANCE,UNBALANCE,AVAILABLESETTAMOUNT,UNSETTLE_AMOUNT,RSM_AMOUNT,AVAILABLESETTAMOUNT_FROZEN,ALTER_AMOUNT,ALTER_BALANCE,ALTER_UNBALANCE,ALTER_AVAILABLESETTAMOUNT,ALTER_UNSETTLE_AMOUNT,ALTER_RSM_AMOUNT,ALTER_ADVANCE_AMOUNT,ALTER_UNADVANCE_AMOUNT,ALTER_AVAILABLESETTAMOUNT_FROZEN,ALTER_TYPE,FEE,FUND_DIRECTION,REMARK
+	</sql>
+	<sql id="condition_sql">
+	       <if test="id != null and id != ''"> AND ID = #{id}</if>
+	       <if test="version != null and version != ''"> AND VERSION = #{version}</if>
+		   <if test="trxDate != null and trxDate != ''"> AND TRX_DATE = #{trxDate}</if>
+		   <if test="userNo != null and userNo != ''"> AND USER_NO = #{userNo}</if>
+		   <if test="requestNo != null and requestNo != ''"> AND REQUEST_NO = #{requestNo}</if>
+		   <if test="trxDateBegin != null and trxDateBegin != ''"> AND TRX_DATE >= #{trxDateBegin}</if>
+		   <if test="trxDateEnd != null and trxDateEnd != ''"> AND TRX_DATE &lt;= #{trxDateEnd}</if>
+	       <if test="createTimeBegin != null and createTimeBegin != ''"> AND CREATE_TIME >= #{createTimeBegin}</if>
+		   <if test="createTimeEnd != null and createTimeEnd != ''"> AND CREATE_TIME &lt;= #{createTimeEnd}</if>
+	       <if test="trxTimeBegin != null and trxTimeBegin != ''"> AND TRX_TIME >= #{trxTimeBegin}</if>
+		   <if test="trxTimeEnd != null and trxTimeEnd != ''"> AND TRX_TIME &lt;= #{trxTimeEnd}</if>
+	       <if test="accountTrxType != null and accountTrxType != ''"> AND ACCOUNT_TRX_TYPE = #{accountTrxType}</if>
+	       <if test="accountNo != null and accountNo != ''"> AND ACCOUNT_NO = #{accountNo}</if>
+	       <if test="accountType != null and accountType != ''"> AND ACCOUNT_TYPE = #{accountType}</if>
+	       <if test="balance != null and balance != ''"> AND BALANCE = #{balance}</if>
+	       <if test="unbalance != null and unbalance != ''"> AND UNBALANCE = #{unbalance}</if>
+	       <if test="availablesettamount != null and availablesettamount != ''"> AND AVAILABLESETTAMOUNT = #{availablesettamount}</if>
+	       <if test="unsettleAmount != null and unsettleAmount != ''"> AND UNSETTLE_AMOUNT = #{unsettleAmount}</if>
+	       <if test="rsmAmount != null and rsmAmount != ''"> AND RSM_AMOUNT = #{rsmAmount}</if>
+	       <if test="availablesettamountFrozen != null and availablesettamountFrozen != ''"> AND AVAILABLESETTAMOUNT_FROZEN = #{availablesettamountFrozen}</if>
+	       <if test="alterAmount != null and alterAmount != ''"> AND ALTER_AMOUNT = #{alterAmount}</if>
+	       <if test="alterBalance != null and alterBalance != ''"> AND ALTER_BALANCE = #{alterBalance}</if>
+	       <if test="alterUnbalance != null and alterUnbalance != ''"> AND ALTER_UNBALANCE = #{alterUnbalance}</if>
+	       <if test="alterAvailablesettamount != null and alterAvailablesettamount != ''"> AND ALTER_AVAILABLESETTAMOUNT = #{alterAvailablesettamount}</if>
+	       <if test="alterUnsettleAmount != null and alterUnsettleAmount != ''"> AND ALTER_UNSETTLE_AMOUNT = #{alterUnsettleAmount}</if>
+	       <if test="alterRsmAmount != null and alterRsmAmount != ''"> AND ALTER_RSM_AMOUNT = #{alterRsmAmount}</if>
+	       <if test="alterAdvanceAmount != null and alterAdvanceAmount != ''"> AND ALTER_ADVANCE_AMOUNT = #{alterAdvanceAmount}</if>
+	       <if test="alterUnadvanceAmount != null and alterUnadvanceAmount != ''"> AND ALTER_UNADVANCE_AMOUNT = #{alterUnadvanceAmount}</if>
+	       <if test="alterAvailablesettamountFrozen != null and alterAvailablesettamountFrozen != ''"> AND ALTER_AVAILABLESETTAMOUNT_FROZEN = #{alterAvailablesettamountFrozen}</if>
+	       <if test="alterType != null and alterType != ''"> AND ALTER_TYPE = #{alterType}</if>
+	       <if test="fee != null and fee != ''"> AND FEE = #{fee}</if>
+	       <if test="fundDirection != null and fundDirection != ''"> AND FUND_DIRECTION = #{fundDirection}</if>
+	       <if test="remark != null and remark != ''"> AND REMARK = #{remark}</if>
+	       <!-- 是否行锁，要放在查询条件最后 -->
+		   <if test="isPessimist != null and isPessimist == true "> for update</if>
+	</sql>
+	
+	<insert id="insert" parameterType="com.junlon.facade.account.entity.AccountDetail">
+		INSERT INTO tbl_account_detail
+		(VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,BALANCE,UNBALANCE,AVAILABLESETTAMOUNT,UNSETTLE_AMOUNT,RSM_AMOUNT,AVAILABLESETTAMOUNT_FROZEN,ALTER_AMOUNT,ALTER_BALANCE,ALTER_UNBALANCE,ALTER_AVAILABLESETTAMOUNT,ALTER_UNSETTLE_AMOUNT,ALTER_RSM_AMOUNT,ALTER_ADVANCE_AMOUNT,ALTER_UNADVANCE_AMOUNT,ALTER_AVAILABLESETTAMOUNT_FROZEN,ALTER_TYPE,FEE,FUND_DIRECTION,REMARK)
+		VALUES
+		(#{version} ,#{createTime} ,#{trxTime} ,#{trxDate} ,#{accountTrxType} ,#{requestNo} ,#{accountNo} ,#{userNo} ,#{accountType} ,#{balance} ,#{unbalance} ,#{availablesettamount} ,#{unsettleAmount} ,#{rsmAmount} ,#{availablesettamountFrozen} ,#{alterAmount} ,#{alterBalance} ,#{alterUnbalance} ,#{alterAvailablesettamount} ,#{alterUnsettleAmount} ,#{alterRsmAmount} ,#{alterAdvanceAmount} ,#{alterUnadvanceAmount} ,#{alterAvailablesettamountFrozen} ,#{alterType} ,#{fee} ,#{fundDirection} ,#{remark}  )
+    </insert>
+    
+    <insert id="batchInsert" parameterType="com.junlon.facade.account.entity.AccountDetail">
+		insert into	tbl_account_detail
+		(VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,BALANCE,UNBALANCE,AVAILABLESETTAMOUNT,UNSETTLE_AMOUNT,RSM_AMOUNT,AVAILABLESETTAMOUNT_FROZEN,ALTER_AMOUNT,ALTER_BALANCE,ALTER_UNBALANCE,ALTER_AVAILABLESETTAMOUNT,ALTER_UNSETTLE_AMOUNT,ALTER_RSM_AMOUNT,ALTER_ADVANCE_AMOUNT,ALTER_UNADVANCE_AMOUNT,ALTER_AVAILABLESETTAMOUNT_FROZEN,ALTER_TYPE,FEE,FUND_DIRECTION,REMARK)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{version} ,#{createTime} ,#{trxTime} ,#{trxDate} ,#{accountTrxType} ,#{requestNo} ,#{accountNo} ,#{userNo} ,#{accountType} ,#{balance} ,#{unbalance} ,#{availablesettamount} ,#{unsettleAmount} ,#{rsmAmount} ,#{availablesettamountFrozen} ,#{alterAmount} ,#{alterBalance} ,#{alterUnbalance} ,#{alterAvailablesettamount} ,#{alterUnsettleAmount} ,#{alterRsmAmount} ,#{alterAdvanceAmount} ,#{alterUnadvanceAmount} ,#{alterAvailablesettamountFrozen} ,#{alterType} ,#{fee} ,#{fundDirection} ,#{remark}  )
+		</foreach>
+	</insert>
+	
+	<!-- 更新:version+1 实现乐观锁 -->
+	<update id="update" parameterType="com.junlon.facade.account.entity.AccountDetail">
+		update tbl_account_detail set
+	        VERSION = #{version} + 1 ,
+	        CREATE_TIME = #{createTime} ,
+	        TRX_TIME = #{trxTime} ,
+	        TRX_DATE = #{trxDate} ,
+	        ACCOUNT_TRX_TYPE = #{accountTrxType} ,
+	        REQUEST_NO = #{requestNo} ,
+	        ACCOUNT_NO = #{accountNo} ,
+	        USER_NO = #{userNo} ,
+	        ACCOUNT_TYPE = #{accountType} ,
+	        BALANCE = #{balance} ,
+	        UNBALANCE = #{unbalance} ,
+	        AVAILABLESETTAMOUNT = #{availablesettamount} ,
+	        UNSETTLE_AMOUNT = #{unsettleAmount} ,
+	        RSM_AMOUNT = #{rsmAmount} ,
+	        AVAILABLESETTAMOUNT_FROZEN = #{availablesettamountFrozen} ,
+	        ALTER_AMOUNT = #{alterAmount} ,
+	        ALTER_BALANCE = #{alterBalance} ,
+	        ALTER_UNBALANCE = #{alterUnbalance} ,
+	        ALTER_AVAILABLESETTAMOUNT = #{alterAvailablesettamount} ,
+	        ALTER_UNSETTLE_AMOUNT = #{alterUnsettleAmount} ,
+	        ALTER_RSM_AMOUNT = #{alterRsmAmount} ,
+	        ALTER_ADVANCE_AMOUNT = #{alterAdvanceAmount} ,
+	        ALTER_UNADVANCE_AMOUNT = #{alterUnadvanceAmount} ,
+	        ALTER_AVAILABLESETTAMOUNT_FROZEN = #{alterAvailablesettamountFrozen} ,
+	        ALTER_TYPE = #{alterType} ,
+	        FEE = #{fee} ,
+	        FUND_DIRECTION = #{fundDirection} ,
+	        REMARK = #{remark} 
+        <where>
+	        ID = #{id} AND VERSION = #{version}
+        </where> 
+	</update>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from tbl_account_detail
+		where 
+	        ID = #{id} 
+	</delete>
+	
+	<select id="getById" parameterType="java.lang.Long" resultMap="beanMap">
+		select <include refid="Base_Column_List" />
+		from tbl_account_detail
+		where 
+	        ID = #{id} 
+	</select>
+	
+	<select id="listBy" parameterType="java.util.Map" resultMap="beanMap">
+		select <include refid="Base_Column_List" />
+		from tbl_account_detail
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<select id="listPage" parameterType="java.util.Map" resultMap="beanMap">
+		select <include refid="Base_Column_List" /> 
+		from tbl_account_detail
+		<if test="isUseTrxDateIdx != null">
+			use index(idx_trx_date)
+		</if>
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<choose>
+			<when test="orderCondition == 'asc'">
+				<![CDATA[ order by ID asc]]>
+			</when>
+			<otherwise>
+				<![CDATA[ order by ID desc]]>
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="calNeedMigrationDates" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT TRX_DATE
+		FROM <include refid="table" />
+		WHERE TRX_DATE <![CDATA[ <= ]]> #{calNeedMigrationDates,jdbcType=DATE}
+		GROUP BY TRX_DATE
+	</select>
+
+	<select id="getDetailMigrationVoByDate" parameterType="java.util.Map" resultType="com.junlon.facade.account.vo.AccountMigrationVo">
+		SELECT
+		TRX_DATE as migrationDate,
+		MIN(ID) as minId,
+		MAX(ID) as maxId,
+		COUNT(ID) as preMigrationNum
+		FROM <include refid="table" />
+		WHERE TRX_DATE = #{migrationDate,jdbcType=DATE}
+	</select>
+
+	<select id="queryNeedMigrationIdsList" parameterType="com.junlon.facade.account.vo.AccountMigrationVo" resultType="java.lang.Long">
+		SELECT
+		ID
+		FROM <include refid="table" />
+		WHERE TRX_DATE = #{migrationDate,jdbcType=DATE} AND ID BETWEEN #{currentMinId,jdbcType=BIGINT} AND #{currentMaxId,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteDetailByIdsList" parameterType="map">
+		DELETE
+		FROM <include refid="table" />
+		WHERE
+		ID IN
+		<foreach collection="idsList" index="index" item="item" open="(" separator="," close=")">
+			#{item,jdbcType=BIGINT}
+		</foreach>
+	</delete>
+
+</mapper>
+

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junlon.core.account.dao.impl.AccountDaoImpl">
+
+	<sql id="table"> TBL_ACCOUNT </sql>
+
+	<resultMap id="beanMap" type="com.junlon.facade.account.entity.Account">
+		<id property="id" column="ID" />
+		<result property="version" column="VERSION" />
+		<result property="createTime" column="CREATETIME" />
+		<result property="balance" column="BALANCE" />
+		<result property="accountNo" column="ACCOUNTNO" />
+		<result property="unBalance" column="UNBALANCE" />
+		<result property="securityMoney" column="SECURITYMONEY" />
+		<result property="status" column="STATUS" />
+		<result property="userNo" column="USERNO" />
+		<result property="accountType" column="ACCOUNTTYPE" />
+		<result property="lastTime" column="LASTTIME" />
+		<result property="availableSettAmount" column="AVAILABLESETTAMOUNT" />
+		<result property="currentCanOutAmount" column="CURRENT_CAN_OUT_AMOUNT" />
+		<result property="accountTitleNo" column="ACCOUNTTITLENO" />
+		<result property="maxPayForSubScale" column="MAX_PAY_FOR_SUB_SCALE" />
+		<result property="currentDebitAddUpAmount" column="CURRENT_DEBIT_ADDUP_AMOUNT" />
+		<result property="currentCreditAddUpAmount" column="CURRENT_CREDIT_ADDUP_AMOUNT" />
+		<result property="currentDebitAddUpAmountTemp" column="CURRENT_DEBIT_ADDUP_AMOUNT_TEMP" />
+		<result property="currentCreditAddUpAmountTemp" column="CURRENT_CREDIT_ADDUP_AMOUNT_TEMP" />
+
+		<result property="unsettleAmount" column="UNSETTLE_AMOUNT"/>
+        <result property="rsmAmount" column="RSM_AMOUNT"/>
+        <result property="availablesettamountFrozen" column="AVAILABLESETTAMOUNT_FROZEN"/>
+		<result property="isNewAccountLogic" column="IS_NEW_ACCOUNT_LOGIC"/>
+	</resultMap>
+
+	<!-- 统计汇总 -->
+	<select id="countByPageParam" parameterType="java.util.Map" resultType="hashmap">
+		select
+		SUM(BALANCE) as "balance",
+		sum(UNBALANCE) as "unBalance",
+		sum(AVAILABLESETTAMOUNT) as "availableSettAmount",
+		sum(UNSETTLE_AMOUNT) as "unSettleAmount",
+		sum(RSM_AMOUNT) as "rsmAmount"
+		from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+
+	<insert id="insert" parameterType="com.junlon.facade.account.entity.Account" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		(VERSION, CREATETIME, BALANCE, ACCOUNTNO, UNBALANCE, SECURITYMONEY, STATUS, USERNO,
+		ACCOUNTTYPE,LASTTIME,AVAILABLESETTAMOUNT,CURRENT_CAN_OUT_AMOUNT,ACCOUNTTITLENO,
+		MAX_PAY_FOR_SUB_SCALE,CURRENT_DEBIT_ADDUP_AMOUNT, CURRENT_CREDIT_ADDUP_AMOUNT,
+		CURRENT_DEBIT_ADDUP_AMOUNT_TEMP, CURRENT_CREDIT_ADDUP_AMOUNT_TEMP,UNSETTLE_AMOUNT,RSM_AMOUNT,
+		AVAILABLESETTAMOUNT_FROZEN,IS_NEW_ACCOUNT_LOGIC)
+		values (0, #{createTime}, #{balance}, #{accountNo},
+		#{unBalance}, #{securityMoney}, #{status}, #{userNo},
+		#{accountType}, #{lastTime}, #{availableSettAmount}, #{currentCanOutAmount},
+		#{accountTitleNo}, #{maxPayForSubScale},
+		#{currentDebitAddUpAmount}, #{currentCreditAddUpAmount},
+		#{currentDebitAddUpAmountTemp}, #{currentCreditAddUpAmountTemp},
+        #{unsettleAmount} ,#{rsmAmount} ,#{availablesettamountFrozen}, #{isNewAccountLogic})
+	</insert>
+
+	<!-- 更新:version+1 实现乐观锁, 解决行锁，多个线程报错，where USERNO= -->
+	<update id="update" parameterType="com.junlon.facade.account.entity.Account">
+		update
+		<include refid="table" />
+		<set>
+			VERSION = #{version}+1 ,
+			USERNO =#{userNo},
+			BALANCE = #{balance},
+			UNBALANCE = #{unBalance},
+			SECURITYMONEY = #{securityMoney},
+			STATUS = #{status},
+			LASTTIME = #{lastTime},
+			AVAILABLESETTAMOUNT = #{availableSettAmount},
+			CURRENT_CAN_OUT_AMOUNT = #{currentCanOutAmount},
+			MAX_PAY_FOR_SUB_SCALE = #{maxPayForSubScale},
+			CURRENT_DEBIT_ADDUP_AMOUNT = #{currentDebitAddUpAmount},
+			CURRENT_CREDIT_ADDUP_AMOUNT = #{currentCreditAddUpAmount},
+			CURRENT_DEBIT_ADDUP_AMOUNT_TEMP = #{currentDebitAddUpAmountTemp},
+			CURRENT_CREDIT_ADDUP_AMOUNT_TEMP = #{currentCreditAddUpAmountTemp},
+			UNSETTLE_AMOUNT = #{unsettleAmount} ,
+	        RSM_AMOUNT = #{rsmAmount} ,
+	        AVAILABLESETTAMOUNT_FROZEN = #{availablesettamountFrozen},
+			IS_NEW_ACCOUNT_LOGIC = #{isNewAccountLogic}
+		</set>
+		<where>
+			ID = #{id} and VERSION = #{version}
+		</where>
+	</update>
+
+	<!-- 交易 -->
+	<update id="transaction" parameterType="com.junlon.facade.account.entity.Account">
+		update
+		<include refid="table" />
+		<set>
+			BALANCE = #{balance},
+			UNBALANCE = #{unBalance},
+			SECURITYMONEY = #{securityMoney},
+			STATUS = #{status},
+			LASTTIME = #{lastTime},
+			AVAILABLESETTAMOUNT = #{availableSettAmount},
+			CURRENT_CAN_OUT_AMOUNT = #{currentCanOutAmount},
+			MAX_PAY_FOR_SUB_SCALE = #{maxPayForSubScale},
+			CURRENT_DEBIT_ADDUP_AMOUNT = #{currentDebitAddUpAmount},
+			CURRENT_CREDIT_ADDUP_AMOUNT = #{currentCreditAddUpAmount},
+			CURRENT_DEBIT_ADDUP_AMOUNT_TEMP = #{currentDebitAddUpAmountTemp},
+			CURRENT_CREDIT_ADDUP_AMOUNT_TEMP = #{currentCreditAddUpAmountTemp}
+		</set>
+		<where>
+			USERNO = #{userNo}
+		</where>
+	</update>
+
+	<sql id="condition_sql">
+		<!-- Equal query -->
+		<if test="beginDate != null and endDate != null and endDate !='' and beginDate != ''">
+			and CREATETIME between #{beginDate} AND CONCAT(#{endDate},' 23:59:59')
+		</if>
+		<if test="accountCreateTimeBegin != null and accountCreateTimeBegin != ''">
+		  	AND CREATETIME >= #{accountCreateTimeBegin}
+		</if>
+		<if test="accountCreateTimeEnd != null and accountCreateTimeEnd != ''">
+		  	AND CREATETIME &lt;= #{accountCreateTimeEnd}
+		</if>
+		<if test="accountNo != null and accountNo !='' "> and ACCOUNTNO = #{accountNo}</if>
+		<if test="status != null and status !='' "> and STATUS = #{status}</if>
+		<if test="userNo != null and userNo !='' "> and USERNO = #{userNo}</if>
+		<if test="userNoList != null and userNoList !='' ">
+			and USERNO in
+			<foreach collection="userNoList" index="index" item="userNo" open="(" separator="," close=")">
+				#{userNo,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+		<if test="accountType != null and accountType !='' "> and ACCOUNTTYPE = #{accountType}</if>
+		<if test="accountTitleNo != null and accountTitleNo !='' "> and ACCOUNTTITLENO = #{accountTitleNo}</if>
+		<if test="isNewAccountLogic != null and isNewAccountLogic !='' "> and IS_NEW_ACCOUNT_LOGIC = #{isNewAccountLogic}</if>
+		<!-- 是否行锁，要放在查询条件最后 -->
+		<if test="isPessimist != null and isPessimist == true "> for update</if>
+	</sql>
+
+	<select id="listBy" parameterType="java.util.Map" resultMap="beanMap">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="beanMap">
+		select * from <include refid="table" /> where ID = #{id}
+	</select>
+
+	<!-- 更新:version+1 实现乐观锁, 解决行锁，多个线程报错，where USERNO= -->
+	<update id="adjustCanOutAmount" parameterType="java.util.Map">
+		update
+		<include refid="table" />
+		<set>
+			VERSION = #{version}+1 ,
+			CURRENT_CAN_OUT_AMOUNT = if(CURRENT_CAN_OUT_AMOUNT is null, 0, CURRENT_CAN_OUT_AMOUNT) + #{adjustAmount}
+		</set>
+		<where>
+			ID = #{id} and VERSION = #{version}
+		</where>
+	</update>
+
+	<update id="adjustAvailableSettAmount" parameterType="java.util.Map">
+		update
+		<include refid="table" />
+		<set>
+			VERSION = #{version}+1 ,
+			AVAILABLESETTAMOUNT = if(AVAILABLESETTAMOUNT is null, 0, AVAILABLESETTAMOUNT) + #{adjustAmount},
+			LASTTIME = #{lastTime}
+		</set>
+		<where>
+			ID = #{id} and VERSION = #{version}
+		</where>
+	</update>
+
+	<update id="updateAccountNewLogic" parameterType="java.util.Map">
+		update
+		<include refid="table" />
+		<set>
+			IS_NEW_ACCOUNT_LOGIC = #{isNewAccountLogic},
+			LASTTIME = #{lastTime}
+		</set>
+		<where>
+			USERNO IN
+			<foreach collection="userNoList" index="index" item="userNo" open="(" separator="," close=")">
+				#{userNo,jdbcType=VARCHAR}
+			</foreach>
+		</where>
+	</update>
+
+	<select id="mapBy" parameterType="java.util.Map" resultMap="beanMap">
+		select * from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+    <select id="listPage" parameterType="java.util.Map" resultMap="beanMap">
+        select *
+        from <include refid="table" />
+        <where>
+            <include refid="condition_sql" />
+        </where>
+        <![CDATA[ order by ID desc]]>
+    </select>
+
+	<select id="getAccountAmountVoByUserNo" parameterType="string" resultType="com.junlon.facade.account.vo.AccountAmountVo">
+		SELECT
+		ac.USERNO as userNo,
+		ac.ACCOUNTNO as accountNo,
+		ac.ACCOUNTTYPE as accountType,
+		ac.STATUS as status,
+		ac.BALANCE as balance,
+		ac.UNBALANCE as unBalance,
+		ac.AVAILABLESETTAMOUNT as availableSettAmount,
+		ac.CURRENT_CAN_OUT_AMOUNT as currentCanOutAmount,
+		ac.UNSETTLE_AMOUNT as unSettleAmount,
+		ac.RSM_AMOUNT as rsmAmount,
+		ac.AVAILABLESETTAMOUNT_FROZEN as availableSettAmountFrozen,
+		ac.IS_NEW_ACCOUNT_LOGIC as isNewAccountLogic,
+		ad.MAX_ADVANCE_AMOUNT as maxAdvanceAmount,
+		ad.AVAILABLE_ADVANCE_AMOUNT as availableAdvanceAmount,
+		ad.CURRENT_ADVANCE_AMOUNT as currentAdvanceAmount,
+		ad.USED_ADVANCE_AMOUNT as usedAdvanceAmount,
+		ad.ADVANCE_FROZEN_AMOUNT as advanceFrozenAmount,
+		ad.ADVANCE_SCALE as advanceScale,
+		ad.LAST_CLEAR_DATE as lastClearDate,
+		ad.LAST_DAILY_COLLECT_DATE as lastDailyCollectDate,
+		ad.GRAND_TOTAL_RECEIVE_AMOUNT as grandTotalReceiveAmount,
+		ad.GRAND_TOTAL_FROZEN_AMOUNT as grandTotalFrozenAmount,
+		ad.GRAND_TOTAL_AVAILABLE_FROZEN_AMOUNT as grandTotalAvailableFrozenAmount,
+		ad.GRAND_TOTAL_RETURN_AMOUNT as grandTotalReturnAmount,
+		ad.GRAND_TOTAL_AVAILABLE_RETURN_AMOUNT as grandTotalAvailableReturnAmount
+		FROM
+		tbl_account ac LEFT JOIN tbl_account_advance ad ON ac.ACCOUNTNO = ad.ACCOUNT_NO
+		WHERE ac.USERNO = #{userNo,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

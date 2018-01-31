@@ -13,10 +13,8 @@
     <groupId>com.gw.common</groupId>
     <artifactId>gw-common-base</artifactId>
     <version>${gw-common-base.version}</version>
-    <modules>
-        <module>../../timer/gw-timer-check</module>
-    </modules>
-    <packaging>pom</packaging>
+
+    <packaging>jar</packaging>
 
 
 </project>

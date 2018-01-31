@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.junlon.core.account.dao.impl.AccountDetailHistoryDaoImpl">
+	<sql id="table"> tbl_account_detail_history </sql>
+
+	<!-- 用于返回的bean对象 -->
+	<resultMap id="BaseResultMap" type="com.junlon.facade.account.entity.AccountDetailHistory">
+		<result column="ID" property="id" jdbcType="BIGINT"/>
+		<result column="MIGRATION_TIME" property="migrationTime" jdbcType="TIMESTAMP"/>
+		<result column="VERSION" property="version" jdbcType="SMALLINT"/>
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="TRX_TIME" property="trxTime" jdbcType="TIMESTAMP"/>
+		<result column="TRX_DATE" property="trxDate" jdbcType="DATE"/>
+		<result column="ACCOUNT_TRX_TYPE" property="accountTrxType" jdbcType="SMALLINT"/>
+		<result column="REQUEST_NO" property="requestNo" jdbcType="VARCHAR"/>
+		<result column="ACCOUNT_NO" property="accountNo" jdbcType="CHAR"/>
+		<result column="USER_NO" property="userNo" jdbcType="VARCHAR"/>
+		<result column="ACCOUNT_TYPE" property="accountType" jdbcType="SMALLINT"/>
+		<result column="BALANCE" property="balance" jdbcType="DECIMAL"/>
+		<result column="UNBALANCE" property="unbalance" jdbcType="DECIMAL"/>
+		<result column="AVAILABLESETTAMOUNT" property="availablesettamount" jdbcType="DECIMAL"/>
+		<result column="UNSETTLE_AMOUNT" property="unsettleAmount" jdbcType="DECIMAL"/>
+		<result column="RSM_AMOUNT" property="rsmAmount" jdbcType="DECIMAL"/>
+		<result column="AVAILABLESETTAMOUNT_FROZEN" property="availablesettamountFrozen" jdbcType="DECIMAL"/>
+		<result column="ALTER_AMOUNT" property="alterAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_BALANCE" property="alterBalance" jdbcType="DECIMAL"/>
+		<result column="ALTER_UNBALANCE" property="alterUnbalance" jdbcType="DECIMAL"/>
+		<result column="ALTER_AVAILABLESETTAMOUNT" property="alterAvailablesettamount" jdbcType="DECIMAL"/>
+		<result column="ALTER_UNSETTLE_AMOUNT" property="alterUnsettleAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_RSM_AMOUNT" property="alterRsmAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_ADVANCE_AMOUNT" property="alterAdvanceAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_UNADVANCE_AMOUNT" property="alterUnadvanceAmount" jdbcType="DECIMAL"/>
+		<result column="ALTER_AVAILABLESETTAMOUNT_FROZEN" property="alterAvailablesettamountFrozen" jdbcType="DECIMAL"/>
+		<result column="ALTER_TYPE" property="alterType" jdbcType="SMALLINT"/>
+		<result column="FEE" property="fee" jdbcType="DECIMAL"/>
+		<result column="FUND_DIRECTION" property="fundDirection" jdbcType="SMALLINT"/>
+		<result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,
+		MIGRATION_TIME,
+		VERSION,
+		CREATE_TIME,
+		TRX_TIME,
+		TRX_DATE,
+		ACCOUNT_TRX_TYPE,
+		REQUEST_NO,
+		ACCOUNT_NO,
+		USER_NO,
+		ACCOUNT_TYPE,
+		BALANCE,
+		UNBALANCE,
+		AVAILABLESETTAMOUNT,
+		UNSETTLE_AMOUNT,
+		RSM_AMOUNT,
+		AVAILABLESETTAMOUNT_FROZEN,
+		ALTER_AMOUNT,
+		ALTER_BALANCE,
+		ALTER_UNBALANCE,
+		ALTER_AVAILABLESETTAMOUNT,
+		ALTER_UNSETTLE_AMOUNT,
+		ALTER_RSM_AMOUNT,
+		ALTER_ADVANCE_AMOUNT,
+		ALTER_UNADVANCE_AMOUNT,
+		ALTER_AVAILABLESETTAMOUNT_FROZEN,
+		ALTER_TYPE,
+		FEE,
+		FUND_DIRECTION,
+		REMARK
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.junlon.facade.account.entity.AccountDetailHistory">
+		INSERT INTO <include refid="table" /> (
+		MIGRATION_TIME ,
+		VERSION ,
+		TRX_TIME ,
+		TRX_DATE ,
+		ACCOUNT_TRX_TYPE ,
+		REQUEST_NO ,
+		ACCOUNT_NO ,
+		USER_NO ,
+		ACCOUNT_TYPE ,
+		BALANCE ,
+		UNBALANCE ,
+		AVAILABLESETTAMOUNT ,
+		UNSETTLE_AMOUNT ,
+		RSM_AMOUNT ,
+		AVAILABLESETTAMOUNT_FROZEN ,
+		ALTER_AMOUNT ,
+		ALTER_BALANCE ,
+		ALTER_UNBALANCE ,
+		ALTER_AVAILABLESETTAMOUNT ,
+		ALTER_UNSETTLE_AMOUNT ,
+		ALTER_RSM_AMOUNT ,
+		ALTER_ADVANCE_AMOUNT ,
+		ALTER_UNADVANCE_AMOUNT ,
+		ALTER_AVAILABLESETTAMOUNT_FROZEN ,
+		ALTER_TYPE ,
+		FEE ,
+		FUND_DIRECTION ,
+		REMARK
+		) VALUES (
+		#{migrationTime,jdbcType=TIMESTAMP},
+		0,
+		#{trxTime,jdbcType=TIMESTAMP},
+		#{trxDate,jdbcType=DATE},
+		#{accountTrxType,jdbcType=SMALLINT},
+		#{requestNo,jdbcType=VARCHAR},
+		#{accountNo,jdbcType=CHAR},
+		#{userNo,jdbcType=VARCHAR},
+		#{accountType,jdbcType=SMALLINT},
+		#{balance,jdbcType=DECIMAL},
+		#{unbalance,jdbcType=DECIMAL},
+		#{availablesettamount,jdbcType=DECIMAL},
+		#{unsettleAmount,jdbcType=DECIMAL},
+		#{rsmAmount,jdbcType=DECIMAL},
+		#{availablesettamountFrozen,jdbcType=DECIMAL},
+		#{alterAmount,jdbcType=DECIMAL},
+		#{alterBalance,jdbcType=DECIMAL},
+		#{alterUnbalance,jdbcType=DECIMAL},
+		#{alterAvailablesettamount,jdbcType=DECIMAL},
+		#{alterUnsettleAmount,jdbcType=DECIMAL},
+		#{alterRsmAmount,jdbcType=DECIMAL},
+		#{alterAdvanceAmount,jdbcType=DECIMAL},
+		#{alterUnadvanceAmount,jdbcType=DECIMAL},
+		#{alterAvailablesettamountFrozen,jdbcType=DECIMAL},
+		#{alterType,jdbcType=SMALLINT},
+		#{fee,jdbcType=DECIMAL},
+		#{fundDirection,jdbcType=SMALLINT},
+		#{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 批量插入记录 -->
+	<insert id="batchInsert" useGeneratedKeys="true" keyProperty="id" parameterType="list">
+		INSERT INTO <include refid="table" /> (
+		ID,
+		MIGRATION_TIME ,
+		VERSION ,
+		CREATE_TIME ,
+		TRX_TIME ,
+		TRX_DATE ,
+		ACCOUNT_TRX_TYPE ,
+		REQUEST_NO ,
+		ACCOUNT_NO ,
+		USER_NO ,
+		ACCOUNT_TYPE ,
+		BALANCE ,
+		UNBALANCE ,
+		AVAILABLESETTAMOUNT ,
+		UNSETTLE_AMOUNT ,
+		RSM_AMOUNT ,
+		AVAILABLESETTAMOUNT_FROZEN ,
+		ALTER_AMOUNT ,
+		ALTER_BALANCE ,
+		ALTER_UNBALANCE ,
+		ALTER_AVAILABLESETTAMOUNT ,
+		ALTER_UNSETTLE_AMOUNT ,
+		ALTER_RSM_AMOUNT ,
+		ALTER_ADVANCE_AMOUNT ,
+		ALTER_UNADVANCE_AMOUNT ,
+		ALTER_AVAILABLESETTAMOUNT_FROZEN ,
+		ALTER_TYPE ,
+		FEE ,
+		FUND_DIRECTION ,
+		REMARK
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id,jdbcType=TIMESTAMP},
+			#{item.migrationTime,jdbcType=TIMESTAMP},
+			#{item.version,jdbcType=SMALLINT},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.trxTime,jdbcType=TIMESTAMP},
+			#{item.trxDate,jdbcType=DATE},
+			#{item.accountTrxType,jdbcType=SMALLINT},
+			#{item.requestNo,jdbcType=VARCHAR},
+			#{item.accountNo,jdbcType=CHAR},
+			#{item.userNo,jdbcType=VARCHAR},
+			#{item.accountType,jdbcType=SMALLINT},
+			#{item.balance,jdbcType=DECIMAL},
+			#{item.unbalance,jdbcType=DECIMAL},
+			#{item.availablesettamount,jdbcType=DECIMAL},
+			#{item.unsettleAmount,jdbcType=DECIMAL},
+			#{item.rsmAmount,jdbcType=DECIMAL},
+			#{item.availablesettamountFrozen,jdbcType=DECIMAL},
+			#{item.alterAmount,jdbcType=DECIMAL},
+			#{item.alterBalance,jdbcType=DECIMAL},
+			#{item.alterUnbalance,jdbcType=DECIMAL},
+			#{item.alterAvailablesettamount,jdbcType=DECIMAL},
+			#{item.alterUnsettleAmount,jdbcType=DECIMAL},
+			#{item.alterRsmAmount,jdbcType=DECIMAL},
+			#{item.alterAdvanceAmount,jdbcType=DECIMAL},
+			#{item.alterUnadvanceAmount,jdbcType=DECIMAL},
+			#{item.alterAvailablesettamountFrozen,jdbcType=DECIMAL},
+			#{item.alterType,jdbcType=SMALLINT},
+			#{item.fee,jdbcType=DECIMAL},
+			#{item.fundDirection,jdbcType=SMALLINT},
+			#{item.remark,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<!--更新-->
+	<update id="update" parameterType="com.junlon.facade.account.entity.AccountDetailHistory">
+		UPDATE <include refid="table" /> SET
+		MIGRATION_TIME = #{migrationTime,jdbcType=TIMESTAMP},
+		VERSION = #{version,jdbcType=SMALLINT} + 1,
+		TRX_TIME = #{trxTime,jdbcType=TIMESTAMP},
+		TRX_DATE = #{trxDate,jdbcType=DATE},
+		ACCOUNT_TRX_TYPE = #{accountTrxType,jdbcType=SMALLINT},
+		REQUEST_NO = #{requestNo,jdbcType=VARCHAR},
+		ACCOUNT_NO = #{accountNo,jdbcType=CHAR},
+		USER_NO = #{userNo,jdbcType=VARCHAR},
+		ACCOUNT_TYPE = #{accountType,jdbcType=SMALLINT},
+		BALANCE = #{balance,jdbcType=DECIMAL},
+		UNBALANCE = #{unbalance,jdbcType=DECIMAL},
+		AVAILABLESETTAMOUNT = #{availablesettamount,jdbcType=DECIMAL},
+		UNSETTLE_AMOUNT = #{unsettleAmount,jdbcType=DECIMAL},
+		RSM_AMOUNT = #{rsmAmount,jdbcType=DECIMAL},
+		AVAILABLESETTAMOUNT_FROZEN = #{availablesettamountFrozen,jdbcType=DECIMAL},
+		ALTER_AMOUNT = #{alterAmount,jdbcType=DECIMAL},
+		ALTER_BALANCE = #{alterBalance,jdbcType=DECIMAL},
+		ALTER_UNBALANCE = #{alterUnbalance,jdbcType=DECIMAL},
+		ALTER_AVAILABLESETTAMOUNT = #{alterAvailablesettamount,jdbcType=DECIMAL},
+		ALTER_UNSETTLE_AMOUNT = #{alterUnsettleAmount,jdbcType=DECIMAL},
+		ALTER_RSM_AMOUNT = #{alterRsmAmount,jdbcType=DECIMAL},
+		ALTER_ADVANCE_AMOUNT = #{alterAdvanceAmount,jdbcType=DECIMAL},
+		ALTER_UNADVANCE_AMOUNT = #{alterUnadvanceAmount,jdbcType=DECIMAL},
+		ALTER_AVAILABLESETTAMOUNT_FROZEN = #{alterAvailablesettamountFrozen,jdbcType=DECIMAL},
+		ALTER_TYPE = #{alterType,jdbcType=SMALLINT},
+		FEE = #{fee,jdbcType=DECIMAL},
+		FUND_DIRECTION = #{fundDirection,jdbcType=SMALLINT},
+		REMARK = #{remark,jdbcType=VARCHAR}
+		WHERE ID = #{id,jdbcType=BIGINT} and VERSION = #{version,jdbcType=SMALLINT}
+	</update>
+
+	<!-- 只更新不为null的属性 -->
+	<update id="updateIfNotNull" parameterType="com.junlon.facade.account.entity.AccountDetailHistory">
+		UPDATE <include refid="table" />
+		<set>
+			<if test="migrationTime != null">
+				MIGRATION_TIME =#{migrationTime,jdbcType=TIMESTAMP},
+			</if>
+			VERSION = #{version,jdbcType=SMALLINT} +1,
+			<if test="trxTime != null">
+				TRX_TIME =#{trxTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="trxDate != null">
+				TRX_DATE =#{trxDate,jdbcType=DATE},
+			</if>
+			<if test="accountTrxType != null">
+				ACCOUNT_TRX_TYPE =#{accountTrxType,jdbcType=SMALLINT},
+			</if>
+			<if test="requestNo != null">
+				REQUEST_NO =#{requestNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountNo != null">
+				ACCOUNT_NO =#{accountNo,jdbcType=CHAR},
+			</if>
+			<if test="userNo != null">
+				USER_NO =#{userNo,jdbcType=VARCHAR},
+			</if>
+			<if test="accountType != null">
+				ACCOUNT_TYPE =#{accountType,jdbcType=SMALLINT},
+			</if>
+			<if test="balance != null">
+				BALANCE =#{balance,jdbcType=DECIMAL},
+			</if>
+			<if test="unbalance != null">
+				UNBALANCE =#{unbalance,jdbcType=DECIMAL},
+			</if>
+			<if test="availablesettamount != null">
+				AVAILABLESETTAMOUNT =#{availablesettamount,jdbcType=DECIMAL},
+			</if>
+			<if test="unsettleAmount != null">
+				UNSETTLE_AMOUNT =#{unsettleAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="rsmAmount != null">
+				RSM_AMOUNT =#{rsmAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="availablesettamountFrozen != null">
+				AVAILABLESETTAMOUNT_FROZEN =#{availablesettamountFrozen,jdbcType=DECIMAL},
+			</if>
+			<if test="alterAmount != null">
+				ALTER_AMOUNT =#{alterAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterBalance != null">
+				ALTER_BALANCE =#{alterBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="alterUnbalance != null">
+				ALTER_UNBALANCE =#{alterUnbalance,jdbcType=DECIMAL},
+			</if>
+			<if test="alterAvailablesettamount != null">
+				ALTER_AVAILABLESETTAMOUNT =#{alterAvailablesettamount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterUnsettleAmount != null">
+				ALTER_UNSETTLE_AMOUNT =#{alterUnsettleAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterRsmAmount != null">
+				ALTER_RSM_AMOUNT =#{alterRsmAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterAdvanceAmount != null">
+				ALTER_ADVANCE_AMOUNT =#{alterAdvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterUnadvanceAmount != null">
+				ALTER_UNADVANCE_AMOUNT =#{alterUnadvanceAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="alterAvailablesettamountFrozen != null">
+				ALTER_AVAILABLESETTAMOUNT_FROZEN =#{alterAvailablesettamountFrozen,jdbcType=DECIMAL},
+			</if>
+			<if test="alterType != null">
+				ALTER_TYPE =#{alterType,jdbcType=SMALLINT},
+			</if>
+			<if test="fee != null">
+				FEE =#{fee,jdbcType=DECIMAL},
+			</if>
+			<if test="fundDirection != null">
+				FUND_DIRECTION =#{fundDirection,jdbcType=SMALLINT},
+			</if>
+			<if test="remark != null">
+				REMARK =#{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=BIGINT} and VERSION = #{version,jdbcType=SMALLINT}
+	</update>
+
+	<!-- 不分页查询 -->
+	<select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by ID desc]]>
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by ID desc]]>
+	</select>
+
+	<!-- 分页查询时计算总记录数 -->
+	<select id="listPageCount" parameterType="java.util.Map" resultType="long">
+		select count(1) from
+		<include refid="table" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<!-- 根据id查询 -->
+	<select id="getById" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+		FROM <include refid="table" />
+		WHERE ID = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!--按id主键删除-->
+	<delete id="deleteById">
+		DELETE FROM <include refid="table" /> WHERE ID = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<!-- ↑↑↑↑↑↑ 如果有新增字段、删除字段、修改字段 以上内容可用模板生成新内容后直接替换 ↑↑↑↑↑↑ -->
+	<!-- ↓↓↓↓↓↓ 以下内容是根据需求手动添加或修改的，请勿使用模板内容直接覆盖 ↓↓↓↓↓↓ -->
+
+	<sql id="condition_sql">
+		<if test="id != null">
+			and ID = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="migrationTime != null">
+			and MIGRATION_TIME = #{migrationTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="version != null">
+			and VERSION = #{version,jdbcType=SMALLINT}
+		</if>
+		<if test="createTime != null">
+			and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="detailHistoryCreateBeginTime != null and detailHistoryCreateBeginTime != ''">
+			and CREATE_TIME >= #{detailHistoryCreateBeginTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="detailHistoryCreateEndTime != null and detailHistoryCreateEndTime != ''">
+			and CREATE_TIME &lt;= #{detailHistoryCreateEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="trxTime != null">
+			and TRX_TIME = #{trxTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="trxDate != null">
+			and TRX_DATE = #{trxDate,jdbcType=DATE}
+		</if>
+		<if test="userNo != null and userNo !=''">
+			and USER_NO = #{userNo,jdbcType=VARCHAR}
+		</if>
+		<if test="requestNo != null and requestNo !=''">
+			and REQUEST_NO = #{requestNo,jdbcType=VARCHAR}
+		</if>
+		<if test="accountTrxType != null">
+			and ACCOUNT_TRX_TYPE = #{accountTrxType,jdbcType=SMALLINT}
+		</if>
+		<if test="accountNo != null and accountNo !=''">
+			and ACCOUNT_NO = #{accountNo,jdbcType=CHAR}
+		</if>
+		<if test="accountType != null">
+			and ACCOUNT_TYPE = #{accountType,jdbcType=SMALLINT}
+		</if>
+		<if test="balance != null">
+			and BALANCE = #{balance,jdbcType=DECIMAL}
+		</if>
+		<if test="unbalance != null">
+			and UNBALANCE = #{unbalance,jdbcType=DECIMAL}
+		</if>
+		<if test="availablesettamount != null">
+			and AVAILABLESETTAMOUNT = #{availablesettamount,jdbcType=DECIMAL}
+		</if>
+		<if test="unsettleAmount != null">
+			and UNSETTLE_AMOUNT = #{unsettleAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="rsmAmount != null">
+			and RSM_AMOUNT = #{rsmAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="availablesettamountFrozen != null">
+			and AVAILABLESETTAMOUNT_FROZEN = #{availablesettamountFrozen,jdbcType=DECIMAL}
+		</if>
+		<if test="alterAmount != null">
+			and ALTER_AMOUNT = #{alterAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterBalance != null">
+			and ALTER_BALANCE = #{alterBalance,jdbcType=DECIMAL}
+		</if>
+		<if test="alterUnbalance != null">
+			and ALTER_UNBALANCE = #{alterUnbalance,jdbcType=DECIMAL}
+		</if>
+		<if test="alterAvailablesettamount != null">
+			and ALTER_AVAILABLESETTAMOUNT = #{alterAvailablesettamount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterUnsettleAmount != null">
+			and ALTER_UNSETTLE_AMOUNT = #{alterUnsettleAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterRsmAmount != null">
+			and ALTER_RSM_AMOUNT = #{alterRsmAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterAdvanceAmount != null">
+			and ALTER_ADVANCE_AMOUNT = #{alterAdvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterUnadvanceAmount != null">
+			and ALTER_UNADVANCE_AMOUNT = #{alterUnadvanceAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="alterAvailablesettamountFrozen != null">
+			and ALTER_AVAILABLESETTAMOUNT_FROZEN = #{alterAvailablesettamountFrozen,jdbcType=DECIMAL}
+		</if>
+		<if test="alterType != null">
+			and ALTER_TYPE = #{alterType,jdbcType=SMALLINT}
+		</if>
+		<if test="fee != null">
+			and FEE = #{fee,jdbcType=DECIMAL}
+		</if>
+		<if test="fundDirection != null">
+			and FUND_DIRECTION = #{fundDirection,jdbcType=SMALLINT}
+		</if>
+		<if test="remark != null and remark !=''">
+			and REMARK = #{remark,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+	<insert id="migrateDetailAccountDetailByIds" parameterType="map">
+		INSERT INTO <include refid="table" />
+		(ID,MIGRATION_TIME,VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,
+		REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,BALANCE,
+		UNBALANCE,AVAILABLESETTAMOUNT,UNSETTLE_AMOUNT,RSM_AMOUNT,AVAILABLESETTAMOUNT_FROZEN,
+		ALTER_AMOUNT,ALTER_BALANCE,ALTER_UNBALANCE,ALTER_AVAILABLESETTAMOUNT,ALTER_UNSETTLE_AMOUNT,
+		ALTER_RSM_AMOUNT,ALTER_ADVANCE_AMOUNT,ALTER_UNADVANCE_AMOUNT,ALTER_AVAILABLESETTAMOUNT_FROZEN,ALTER_TYPE,
+		FEE,FUND_DIRECTION,REMARK)
+		SELECT ID,now(),VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,
+		REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,BALANCE,
+		UNBALANCE,AVAILABLESETTAMOUNT,UNSETTLE_AMOUNT,RSM_AMOUNT,AVAILABLESETTAMOUNT_FROZEN,
+		ALTER_AMOUNT,ALTER_BALANCE,ALTER_UNBALANCE,ALTER_AVAILABLESETTAMOUNT,ALTER_UNSETTLE_AMOUNT,
+		ALTER_RSM_AMOUNT,ALTER_ADVANCE_AMOUNT,ALTER_UNADVANCE_AMOUNT,ALTER_AVAILABLESETTAMOUNT_FROZEN,ALTER_TYPE,
+		FEE,FUND_DIRECTION,REMARK
+		FROM tbl_account_detail
+		WHERE ID IN
+		<foreach collection="idsList" item="item" index="index" open="(" separator="," close=")">
+			#{item,jdbcType=BIGINT}
+		</foreach>
+	</insert>
+
+
+	<insert id="migrationFromAccountDetailByIds" parameterType="map">
+		INSERT INTO <include refid="table" />
+		(ID,MIGRATION_TIME,VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,
+		REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,BALANCE,
+		UNBALANCE,AVAILABLESETTAMOUNT,UNSETTLE_AMOUNT,RSM_AMOUNT,AVAILABLESETTAMOUNT_FROZEN,
+		ALTER_AMOUNT,ALTER_BALANCE,ALTER_UNBALANCE,ALTER_AVAILABLESETTAMOUNT,ALTER_UNSETTLE_AMOUNT,
+		ALTER_RSM_AMOUNT,ALTER_ADVANCE_AMOUNT,ALTER_UNADVANCE_AMOUNT,ALTER_AVAILABLESETTAMOUNT_FROZEN,ALTER_TYPE,
+		FEE,FUND_DIRECTION,REMARK)
+		SELECT ID,now(),VERSION,CREATE_TIME,TRX_TIME,TRX_DATE,ACCOUNT_TRX_TYPE,
+		REQUEST_NO,ACCOUNT_NO,USER_NO,ACCOUNT_TYPE,BALANCE,
+		UNBALANCE,AVAILABLESETTAMOUNT,UNSETTLE_AMOUNT,RSM_AMOUNT,AVAILABLESETTAMOUNT_FROZEN,
+		ALTER_AMOUNT,ALTER_BALANCE,ALTER_UNBALANCE,ALTER_AVAILABLESETTAMOUNT,ALTER_UNSETTLE_AMOUNT,
+		ALTER_RSM_AMOUNT,ALTER_ADVANCE_AMOUNT,ALTER_UNADVANCE_AMOUNT,ALTER_AVAILABLESETTAMOUNT_FROZEN,ALTER_TYPE,
+		FEE,FUND_DIRECTION,REMARK
+		FROM tbl_account_detail
+		WHERE ID IN <foreach collection="detailIdList" item="item" index="index" open="(" separator="," close=")">#{item,jdbcType=BIGINT}</foreach>
+	</insert>
+</mapper>
+
